@@ -75,7 +75,7 @@ export default function RegisterScreen() {
           <Text style={tw`text-white font-bold`}>Daftar</Text>
         </TouchableOpacity>
       )}
-      <Text style={tw`text-md text-center text-black-500 mt-5`}>
+      <Text style={tw`text-md text-center text-black mt-5`}>
         Sudah punya akun? Silahkan Log in
       </Text>
     </View>

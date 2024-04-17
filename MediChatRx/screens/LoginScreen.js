@@ -68,7 +68,7 @@ export default function LoginScreen() {
           <Text style={tw`text-white font-bold`}>Log in</Text>
         </TouchableOpacity>
       )}
-      <Text style={tw`text-md text-center text-black-500 mt-5`}>
+      <Text style={tw`text-md text-center text-black mt-5`}>
         Belum punya akun? Silahkan Register
       </Text>
     </View>
