@@ -3,6 +3,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import React from 'react';
+import ArticleScreen from '../screens/ArticleScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -10,8 +11,10 @@ export default function MyDrawer({ isSignedIn }) {
   return (
     <Drawer.Navigator>
       {isSignedIn ? 
-        <Drawer.Screen name="Home" component={HomeScreen} />  
-        // <Drawer.Screen name="Article" component={''} />  
+        <React.Fragment>
+          <Drawer.Screen name="Home" component={HomeScreen} />  
+          <Drawer.Screen name="Articles about health" component={ArticleScreen} />  
+        </React.Fragment>
       : (
         <React.Fragment>
           <Drawer.Screen name="Login" component={LoginScreen} />
