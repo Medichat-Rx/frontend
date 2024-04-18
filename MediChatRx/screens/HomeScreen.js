@@ -1,6 +1,5 @@
 import { Chat } from '@flyerhq/react-native-chat-ui'
 import React, { useState } from 'react'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 // For the testing purposes, you should probably use https://github.com/uuidjs/uuid
 const uuidv4 = () => {
@@ -33,12 +32,10 @@ export default function HomeScreen() {
   return (
     // Remove this provider if already registered elsewhere
     // or you have React Navigation set up
-    <SafeAreaProvider>
       <Chat
         messages={messages}
         onSendPress={handleSendPress}
         user={user}
       />
-    </SafeAreaProvider>
   )
 }
