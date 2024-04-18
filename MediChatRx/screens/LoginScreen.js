@@ -9,8 +9,9 @@ import {
   Image,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
+import RegisterScreen from "./RegisterScreen";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("user@mail.com");
   const [password, setPassword] = useState("password");
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,7 +23,7 @@ export default function LoginScreen() {
     console.log("Attempting to login with", email, password);
 
     setTimeout(() => {
-      if (username === "user@mail.com" && password === "password") {
+      if (email === "user@mail.com" && password === "password") {
         console.log("Login successful");
       } else {
         setErrorMessage("Invalid username or password");
@@ -39,7 +40,7 @@ export default function LoginScreen() {
       <Text style={tw`text-3xl text-center text-black font-bold mb-5`}>
         Selamat Datang di MediChat Rx
       </Text>
-      <Text style={tw`text-md text-center text-black mb-5`}>
+      <Text style={tw`text-base text-center text-black mb-5`}>
         Silahkan Log in
       </Text>
       {errorMessage && (
@@ -68,9 +69,12 @@ export default function LoginScreen() {
           <Text style={tw`text-white font-bold`}>Log in</Text>
         </TouchableOpacity>
       )}
-      <Text style={tw`text-md text-center text-black mt-5`}>
-        Belum punya akun? Silahkan Register
-      </Text>
+      <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+        <Text style={tw`text-base text-center text-black mt-5`}>
+          Belum punya akun? Silahkan {" "}
+          <Text style={tw`text-blue-500`}>Register</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

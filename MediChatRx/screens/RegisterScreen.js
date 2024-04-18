@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [photoProfile, setPhotoProfile] = useState("");
@@ -40,7 +40,7 @@ export default function RegisterScreen() {
       <Text style={tw`text-3xl text-center text-black font-bold mb-5`}>
         Selamat Datang di MediChat Rx
       </Text>
-      <Text style={tw`text-md text-center text-black mb-5`}>
+      <Text style={tw`text-base text-center text-black mb-5`}>
         Silahkan Register
       </Text>
       {errorMessage && (
@@ -75,9 +75,11 @@ export default function RegisterScreen() {
           <Text style={tw`text-white font-bold`}>Daftar</Text>
         </TouchableOpacity>
       )}
-      <Text style={tw`text-md text-center text-black mt-5`}>
-        Sudah punya akun? Silahkan Log in
-      </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+        <Text style={tw`text-base text-center text-black mt-5`}>
+          Sudah punya akun? Silahkan <Text style={tw`text-blue-500`}>Log in</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

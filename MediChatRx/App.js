@@ -8,12 +8,10 @@ import client from "./config/apolloClient";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import * as SecureStore from "expo-secure-store";
-import MyTabs from "./navigators/MyTabs";
-
-const Tab = createBottomTabNavigator();
+import MyDrawer from "./navigators/MyDrawer"; // Changed from MyTabs to MyDrawer
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   // const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
 
   const getToken = async () => {
@@ -42,7 +40,7 @@ export default function App() {
     >
       <ApolloProvider client={client}>
         <NavigationContainer>
-          <MyTabs isSignedIn={isSignedIn} />
+          <MyDrawer isSignedIn={isSignedIn} />
         </NavigationContainer>
       </ApolloProvider>
     </AuthContext.Provider>
