@@ -2,6 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import ProfileScreen from "../screens/ProfileScreen"; // Added import for ProfileScreen
 import React from "react";
 import ArticleScreen from "../screens/ArticleScreen";
 import DetailScreen from "../screens/DetailScreen";
@@ -25,6 +26,7 @@ export default function MyDrawer({ isSignedIn }) {
       {isSignedIn ? (
         <React.Fragment>
           <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="Profile" component={ProfileScreen} />
           <Drawer.Screen
             name="Articles"
             component={ArticleScreen}
