@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, TextInput, Button, ActivityIndicator, Text, Alert, Image } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -8,22 +11,24 @@ import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ProfileScreen from "../screens/ProfileScreen"; // Added import for ProfileScreen
-import React from "react";
-import ArticleScreen from "../screens/ArticleScreen";
-import DetailScreen from "../screens/DetailScreen";
-// import MyStack from "./MyStack";
-import { Text, Alert, View, StyleSheet } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import MapScreen from "../screens/MapScreen";
+import ArticleScreen from '../screens/ArticleScreen';
+import DetailScreen from '../screens/DetailScreen';
 
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props) {
+function CustomDrawerContent({ user, isSignedIn, ...props }) {
   return (
     <DrawerContentScrollView {...props}>
+      <View style={tw`items-center p-5`}>
+        <Image source={{ uri: "https://assets.kompasiana.com/items/album/2021/03/24/blank-profile-picture-973460-1280-605aadc08ede4874e1153a12.png?t=o&v=300" }} style={tw`w-24 h-24 rounded-full m-3`} />
+        <Text style={tw`text-lg text-white font-bold`}>Username</Text>
+        <Text style={tw`text-white`}>{"@username"}</Text>
+      </View>
       <DrawerItemList {...props} />
       {/* tombol logout paling bawah */}
-      {props.isSignedIn && (
+      {isSignedIn && (
         <View style={tw`justify-end`}>
           <DrawerItem
             label="Log out"
@@ -32,8 +37,8 @@ function CustomDrawerContent(props) {
               Alert.alert("Logged Out", "You have been logged out.");
               // For example, navigate to a login screen or reset auth state
             }}
-            labelStyle={{ color: "white" }}
-            style={styles.logoutButton}
+            labelStyle={tw`text-white`}
+            style={tw`bg-red-500`}
           />
         </View>
       )}
@@ -45,9 +50,23 @@ const styles = StyleSheet.create({
   logoutButton: {
     backgroundColor: "red",
   },
+  profileContainer: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  usernameText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
 });
 
-export default function MyDrawer({ isSignedIn }) {
+export default function MyDrawer({ isSignedIn, user }) {
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -58,36 +77,13 @@ export default function MyDrawer({ isSignedIn }) {
         drawerActiveTintColor: "#00b5e3",
         drawerInactiveTintColor: "white",
       }}
-      drawerContent={(props) => <CustomDrawerContent {...props} isSignedIn={isSignedIn} />}
+      drawerContent={(props) => <CustomDrawerContent {...props} isSignedIn={isSignedIn} user={user} />}
     >
-      {isSignedIn ? (
-        <React.Fragment>
-          <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="Profile" component={ProfileScreen}
-          //  options={{
-          //   drawerLabel: () => <Text style={tw`text-white`} color="#00b5e3">Profile</Text>
-          //  }}
-           />
-          <Drawer.Screen name="Map" component={MapScreen} />
-          <Drawer.Screen
-            name="Articles"
-            component={ArticleScreen}
-            // options={{
-            //   drawerLabel: () => <Text style={tw`text-white`}>Articles</Text>,
-            // }}
-          />
-          <Drawer.Screen
-            name="Detail"
-            component={DetailScreen}
-            options={{ drawerLabel: () => null }}
-          />
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Drawer.Screen name="Login" component={LoginScreen} />
-          <Drawer.Screen name="Register" component={RegisterScreen} />
-        </React.Fragment>
-      )}
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
+      <Drawer.Screen name="Map" component={MapScreen} />
+      <Drawer.Screen name="Articles" component={ArticleScreen} />
+      <Drawer.Screen name="Detail" component={DetailScreen} options={{ drawerLabel: () => null }} />
     </Drawer.Navigator>
   );
 }
