@@ -14,17 +14,19 @@ export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [photoProfile, setPhotoProfile] = useState("");
+  const [name, setName] = useState(""); // Added state for name
+  const [username, setUsername] = useState(""); // Added state for username
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
     setIsLoading(true);
     setErrorMessage("");
-    console.log("Attempting to register with", email, password, photoProfile);
+    console.log("Attempting to register with", email, password, photoProfile, name, username); // Updated console log
 
     setTimeout(() => {
-      if (!photoProfile) {
-        setErrorMessage("Photo profile  is required");
+      if (!photoProfile || !name || !username) { // Updated condition to check for name and username
+        setErrorMessage("Photo profile, name, and username are required"); // Updated error message
         console.log("Registration failed");
       } else {
         console.log("Registration successful");
@@ -46,6 +48,18 @@ export default function RegisterScreen({ navigation }) {
       {errorMessage && (
         <Text style={tw`text-red-500 mb-3`}>{errorMessage}</Text>
       )}
+            <TextInput
+        style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
+        value={name}
+        onChangeText={setName}
+        placeholder="Name"
+      />
+      <TextInput
+        style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
+        value={username}
+        onChangeText={setUsername}
+        placeholder="Username"
+      />
       <TextInput
         style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
         value={email}
@@ -59,12 +73,12 @@ export default function RegisterScreen({ navigation }) {
         placeholder="Password"
         secureTextEntry={true}
       />
-      <TextInput
+      {/* <TextInput
         style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
         value={photoProfile}
         onChangeText={setPhotoProfile}
         placeholder="Photo Profile URL"
-      />
+      /> */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#1DA1F2" />
       ) : (

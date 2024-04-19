@@ -12,7 +12,7 @@ import MyDrawer from "./navigators/MyDrawer";
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
   // const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
 
   const getToken = async () => {

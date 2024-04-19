@@ -55,7 +55,7 @@ export default function MyDrawer({ isSignedIn }) {
         drawerStyle: {
           backgroundColor: "#020101",
         },
-        drawerActiveTintColor: "white",
+        drawerActiveTintColor: "#00b5e3",
         drawerInactiveTintColor: "white",
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} isSignedIn={isSignedIn} />}
@@ -63,18 +63,18 @@ export default function MyDrawer({ isSignedIn }) {
       {isSignedIn ? (
         <React.Fragment>
           <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="Your Profile" component={ProfileScreen}
-           options={{
-            drawerLabel: () => <Text style={tw`text-white`}>Profile</Text>
-           }}
+          <Drawer.Screen name="Profile" component={ProfileScreen}
+          //  options={{
+          //   drawerLabel: () => <Text style={tw`text-white`} color="#00b5e3">Profile</Text>
+          //  }}
            />
           <Drawer.Screen name="Map" component={MapScreen} />
           <Drawer.Screen
             name="Articles"
             component={ArticleScreen}
-            options={{
-              drawerLabel: () => <Text style={tw`text-white`}>Articles</Text>,
-            }}
+            // options={{
+            //   drawerLabel: () => <Text style={tw`text-white`}>Articles</Text>,
+            // }}
           />
           <Drawer.Screen
             name="Detail"
