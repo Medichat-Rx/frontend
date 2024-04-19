@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }) {
     <View style={tw`flex-1 items-center justify-center bg-white m-5`}>
       <StatusBar style="auto" />
 
-      <Text style={tw`text-3xl text-center text-black font-bold mb-5`}>
+      <Text style={tw`text-3xl text-center font-bold mb-5 text-blue-800`}>
         Selamat Datang di MediChat Rx
       </Text>
       <Text style={tw`text-base text-center text-black mb-5`}>

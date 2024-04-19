@@ -23,18 +23,20 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       {/* tombol logout paling bawah */}
-      <View style={tw`justify-end`}>
-        <DrawerItem
-          label="Log out"
-          onPress={() => {
-            // Handle logout logic here
-            Alert.alert("Logged Out", "You have been logged out.");
-            // For example, navigate to a login screen or reset auth state
-          }}
-          labelStyle={{ color: "white" }}
-          style={styles.logoutButton}
-        />
-      </View>
+      {props.isSignedIn && (
+        <View style={tw`justify-end`}>
+          <DrawerItem
+            label="Log out"
+            onPress={() => {
+              // Handle logout logic here
+              Alert.alert("Logged Out", "You have been logged out.");
+              // For example, navigate to a login screen or reset auth state
+            }}
+            labelStyle={{ color: "white" }}
+            style={styles.logoutButton}
+          />
+        </View>
+      )}
     </DrawerContentScrollView>
   );
 }
@@ -56,7 +58,7 @@ export default function MyDrawer({ isSignedIn }) {
         drawerActiveTintColor: "white",
         drawerInactiveTintColor: "white",
       }}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => <CustomDrawerContent {...props} isSignedIn={isSignedIn} />}
     >
       {isSignedIn ? (
         <React.Fragment>
