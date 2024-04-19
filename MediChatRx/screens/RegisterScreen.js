@@ -6,27 +6,33 @@ import {
   TextInput,
   View,
   ActivityIndicator,
-  Image,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [photoProfile, setPhotoProfile] = useState("");
-  const [name, setName] = useState(""); // Added state for name
-  const [username, setUsername] = useState(""); // Added state for username
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
     setIsLoading(true);
     setErrorMessage("");
-    console.log("Attempting to register with", email, password, photoProfile, name, username); // Updated console log
+    console.log("Attempting to register with", email, password, name, username);
 
     setTimeout(() => {
-      if (!photoProfile || !name || !username) { // Updated condition to check for name and username
-        setErrorMessage("Photo profile, name, and username are required"); // Updated error message
+      if (!password || !name || !username || !email) { 
+        if (!name) {
+          setErrorMessage("Please input your name");
+        } else if (!username) {
+          setErrorMessage("Please input in your username");
+        } else if (!email) {
+          setErrorMessage("Please input in your email");
+        } else if (!password) {
+          setErrorMessage("Please input in your password");
+        }
         console.log("Registration failed");
       } else {
         console.log("Registration successful");
@@ -48,7 +54,7 @@ export default function RegisterScreen({ navigation }) {
       {errorMessage && (
         <Text style={tw`text-red-500 mb-3`}>{errorMessage}</Text>
       )}
-            <TextInput
+      <TextInput
         style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
         value={name}
         onChangeText={setName}
@@ -73,12 +79,6 @@ export default function RegisterScreen({ navigation }) {
         placeholder="Password"
         secureTextEntry={true}
       />
-      {/* <TextInput
-        style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
-        value={photoProfile}
-        onChangeText={setPhotoProfile}
-        placeholder="Photo Profile URL"
-      /> */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#1DA1F2" />
       ) : (
