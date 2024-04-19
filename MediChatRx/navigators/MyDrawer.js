@@ -11,9 +11,10 @@ import ProfileScreen from "../screens/ProfileScreen"; // Added import for Profil
 import React from "react";
 import ArticleScreen from "../screens/ArticleScreen";
 import DetailScreen from "../screens/DetailScreen";
-import MyStack from "./MyStack";
+// import MyStack from "./MyStack";
 import { Text, Alert, View, StyleSheet } from "react-native";
 import tw from "tailwind-react-native-classnames";
+import MapScreen from "../screens/MapScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -65,6 +66,7 @@ export default function MyDrawer({ isSignedIn }) {
             drawerLabel: () => <Text style={tw`text-white`}>Profile</Text>
            }}
            />
+          <Drawer.Screen name="Map" component={MapScreen} />
           <Drawer.Screen
             name="Articles"
             component={ArticleScreen}
