@@ -11,7 +11,7 @@ import * as SecureStore from "expo-secure-store";
 import MyDrawer from "./navigators/MyDrawer"; // Changed from MyTabs to MyDrawer
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
   // const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
 
   const getToken = async () => {
