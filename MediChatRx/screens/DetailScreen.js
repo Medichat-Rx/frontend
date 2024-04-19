@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image } from 'react-native';
+import { ScrollView, Text, Image, View } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 
 const DetailScreen = ({ route, navigation }) => {
@@ -14,19 +14,21 @@ const DetailScreen = ({ route, navigation }) => {
   }, [navigation, title, content]);
 
   return (
-    <>
+    <ScrollView style={tw`flex-1 bg-white m-5`}>
       {title ?  
-      <View style={tw`flex-1 justify-center bg-white m-5`}>
-        {imageUrl && <Image source={{ uri: imageUrl }} style={tw`w-full h-64 mb-5`} />}
-        <Text style={tw`text-3xl text-left text-black font-bold mb-5`}>{title}</Text>
-        <Text style={tw`text-base text-left text-black mb-5`}>{content}</Text>
-      </View>
-      : <View style={tw`flex-1 justify-center bg-white m-5`}>
-        <Text style={tw`text-2xl text-left text-black italic mb-5`}>
-        "Health is a state of complete physical, mental and social well-being, and not merely the absence of disease or infirmity."</Text><Text style={tw`text-2xl text-left text-black font-bold mb-5`}>- World Health Organization</Text>
-      </View>
+        <View>
+          {imageUrl && <Image source={{ uri: imageUrl }} style={tw`w-full h-64 mb-5`} />}
+          <Text style={tw`text-3xl text-left text-black font-bold mb-5`}>{title}</Text>
+          <Text style={tw`text-base text-left text-black mb-5`}>{content}</Text>
+        </View>
+        : <View style={tw`items-center justify-center`}>
+            <Text style={tw`text-2xl text-center text-black italic mb-5`}>
+              "Health is a state of complete physical, mental and social well-being, and not merely the absence of disease or infirmity."
+            </Text> 
+            <Text style={tw`text-2xl text-center text-black mb-5`}>- World Health Organization</Text>
+          </View>
       }
-    </>
+    </ScrollView>
   );
 };
 
