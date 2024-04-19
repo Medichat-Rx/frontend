@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 
-const ArticleScreen = () => {
+const ArticleScreen = ({ navigation }) => {
   const articles = [
     {
       id: 1,
@@ -21,42 +22,20 @@ const ArticleScreen = () => {
   ];
 
   const handleArticlePress = (id) => {
-    // Navigate to detail screen based on article id
-    console.log(`Article with id ${id} is pressed`);
+    const article = articles.find(article => article.id === id);
+    navigation.navigate('Detail', article);
   };
 
   return (
-    <View style={styles.container}>
+    <View style={tw`flex-1 p-4`}>
       {articles.map((article) => (
-        <TouchableOpacity key={article.id} onPress={() => handleArticlePress(article.id)} style={styles.card}>
-          <Text style={styles.title}>{article.title}</Text>
-          <Text style={styles.content}>{article.content}</Text>
+        <TouchableOpacity key={article.id} onPress={() => handleArticlePress(article.id)} style={tw`bg-gray-100 p-4 my-2 rounded-lg`}>
+          <Text style={tw`text-lg font-bold mb-2`}>{article.title}</Text>
+          <Text style={tw`text-base`}>{article.content}</Text>
         </TouchableOpacity>
       ))}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  card: {
-    backgroundColor: '#f9f9f9',
-    padding: 15,
-    marginVertical: 10,
-    borderRadius: 8,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  content: {
-    fontSize: 16,
-  },
-});
-
 export default ArticleScreen;
-
