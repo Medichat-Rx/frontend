@@ -5,20 +5,34 @@ import RegisterScreen from "../screens/RegisterScreen";
 import React from "react";
 import ArticleScreen from "../screens/ArticleScreen";
 import DetailScreen from "../screens/DetailScreen";
+import MyStack from "./MyStack";
+import { Text } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
 export default function MyDrawer({ isSignedIn }) {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+     screenOptions={{
+        headerShown: true,
+        drawerStyle: {
+          backgroundColor: "#020101",
+        },
+        drawerActiveTintColor: "white",
+        drawerInactiveTintColor: "white",
+      }}
+     >
       {isSignedIn ? (
         <React.Fragment>
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen
-            name="Articles about health"
+            name="Articles"
             component={ArticleScreen}
+            // options={{drawerLabel: () => <Text>Articles</Text>}}
           />
-          <Drawer.Screen name="Detail" component={DetailScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen  name="Detail" component={DetailScreen} 
+          options={{ drawerLabel: () => null }} 
+          />
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -29,4 +43,3 @@ export default function MyDrawer({ isSignedIn }) {
     </Drawer.Navigator>
   );
 }
-

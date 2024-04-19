@@ -30,7 +30,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsReady(true);
-    }, 1000); // 2 seconds splash screen delay
+    }, 1000); // 1 seconds splash screen delay
     getToken();
     // console.log(getToken())
   }, []);
@@ -77,3 +77,4 @@ const styles = StyleSheet.create({
     height: 100,
   },
 });
+
