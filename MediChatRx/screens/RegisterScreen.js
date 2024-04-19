@@ -75,7 +75,7 @@ export default function RegisterScreen({ navigation }) {
           <Text style={tw`text-white font-bold`}>Daftar</Text>
         </TouchableOpacity>
       )}
-      <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={tw`text-base text-center text-black mt-5`}>
           Sudah punya akun? Silahkan <Text style={tw`text-blue-500`}>Log in</Text>
         </Text>
