@@ -44,9 +44,9 @@ export default function LoginScreen({ navigation }) {
           },
       });
       const test = await SecureStore.setItemAsync("access_token", data.login.access_token);
-      // console.log(test)
-      // const check = await SecureStore.getItemAsync('access_token')
-      // console.log(check, "<<<<<")
+      console.log(test)
+      const check = await SecureStore.getItemAsync('access_token')
+      console.log(check, "<<<<<")
       console.log("Login success")
       setIsSignedIn(true);
     } catch (error) {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, Alert, Image } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
+import tw from "tailwind-react-native-classnames";
 import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import tw from "tailwind-react-native-classnames";
 import MapScreen from "../screens/MapScreen";
 import ArticleScreen from '../screens/ArticleScreen';
 import DetailScreen from '../screens/DetailScreen';
@@ -13,7 +13,7 @@ import LogoutButton from '../components/LogoutButton';
 
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent({ isSignedIn, navigation, ...props }) {
+function CustomDrawerContent({ isSignedIn, ...props }) {
   return (
     <DrawerContentScrollView {...props}>
       {isSignedIn && ( 
@@ -34,7 +34,7 @@ function CustomDrawerContent({ isSignedIn, navigation, ...props }) {
   );
 }
 
-export default function MyDrawer({ isSignedIn, navigation }) {
+export default function MyDrawer({ isSignedIn }) {
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -45,7 +45,7 @@ export default function MyDrawer({ isSignedIn, navigation }) {
         drawerActiveTintColor: "#00b5e3",
         drawerInactiveTintColor: "white",
       }}
-      drawerContent={(props) => <CustomDrawerContent {...props} isSignedIn={isSignedIn} navigation={navigation} />}
+      drawerContent={(props) => <CustomDrawerContent {...props} isSignedIn={isSignedIn} />}
     >
       {isSignedIn ? (
         <>
