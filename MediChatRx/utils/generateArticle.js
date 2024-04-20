@@ -46,7 +46,7 @@ export default async function generateArticle() {
     },
   ];
   try {
-    const instructions = `tolong buatkan 5 data article berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contennya menjadi panjang dan gunakan bahasa Indonesia: 
+    const instructions = `tolong buatkan 5 data article yang berhubungan dengan kesehatan atau obat-obatan berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contennya menjadi panjang dan gunakan bahasa Indonesia: 
     {
         "id": Math.floor(Math.random() * Date.now()).toString();,
         "title": "Manfaat Olahraga Bagi Kesehatan Tubuh",
