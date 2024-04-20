@@ -14,7 +14,7 @@ import {
   //   cache: new InMemoryCache(),
   // });
   const httpLink = createHttpLink({
-    uri: "https://project.mf-cyberse.online/",
+    uri: "https://a122-2a09-bac5-3a25-18c8-00-278-a5.ngrok-free.app/",
   });
   
   const authLink = setContext(async (_, { headers }) => {
@@ -34,4 +34,3 @@ import {
   });
   
   export default client;
-  

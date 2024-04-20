@@ -1,5 +1,6 @@
+import { gql, useMutation } from "@apollo/client";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -9,28 +10,51 @@ import {
   Image,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import RegisterScreen from "./RegisterScreen";
+import { AuthContext } from "../context/AuthContext";
+import * as SecureStore from "expo-secure-store";
+
+const LOGIN_MUTATION = gql`
+  mutation Mutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      access_token
+      email
+    }
+  }
+`;
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("user@mail.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { setIsSignedIn } = useContext(AuthContext);
 
-  const handleLogin = async () => {
+  const [loginInput, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+
+  const handleLogin = async () => { 
     setIsLoading(true);
     setErrorMessage("");
-    console.log("Attempting to login with", email, password);
+    // console.log("Attempting to login with", email, password);
 
-    setTimeout(() => {
-      if (email === "user@mail.com" && password === "password") {
-        console.log("Login successful");
-      } else {
-        setErrorMessage("Invalid username or password");
-        console.log("Login failed");
-      }
+    try {
+      const { data } = await loginInput({
+        variables: {
+            email,
+            password,
+          },
+      });
+      // const test = await SecureStore.setItemAsync("access_token", data.login.access_token);
+      // console.log(test)
+      // const check = await SecureStore.getItemAsync('access_token')
+      // console.log(check, "<<<<<")
+      console.log("Login success")
+      setIsSignedIn(true);
+    } catch (error) {
+      setErrorMessage("Invalid email or password");
+      console.log("Login failed", error);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -50,7 +74,7 @@ export default function LoginScreen({ navigation }) {
         style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
         value={email}
         onChangeText={setEmail}
-        placeholder="Username"
+        placeholder="Email"
       />
       <TextInput
         style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
@@ -71,7 +95,7 @@ export default function LoginScreen({ navigation }) {
       )}
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
         <Text style={tw`text-base text-center text-black mt-5`}>
-          Belum punya akun? Silahkan {" "}
+          Belum punya akun? Silahkan{" "}
           <Text style={tw`text-blue-500`}>Register</Text>
         </Text>
       </TouchableOpacity>
