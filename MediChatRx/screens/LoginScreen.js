@@ -43,7 +43,7 @@ export default function LoginScreen({ navigation }) {
             password,
           },
       });
-      // const test = await SecureStore.setItemAsync("access_token", data.login.access_token);
+      const test = await SecureStore.setItemAsync("access_token", data.login.access_token);
       // console.log(test)
       // const check = await SecureStore.getItemAsync('access_token')
       // console.log(check, "<<<<<")
