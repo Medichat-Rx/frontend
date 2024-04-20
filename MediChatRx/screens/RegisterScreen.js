@@ -1,4 +1,6 @@
+import { useMutation } from "@apollo/client";
 import { StatusBar } from "expo-status-bar";
+import gql from "graphql-tag";
 import { useState } from "react";
 import {
   TouchableOpacity,
@@ -9,6 +11,19 @@ import {
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
+const REGISTER_MUTATION = gql`
+  mutation Mutation($newUser: NewUser) {
+    register(newUser: $newUser) {
+      _id
+      name
+      username
+      email
+      password
+      createdAt
+    }
+  }
+`;
+
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,28 +32,43 @@ export default function RegisterScreen({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const [register, { data, loading, error }] = useMutation(REGISTER_MUTATION);
+
   const handleRegister = async () => {
     setIsLoading(true);
     setErrorMessage("");
     console.log("Attempting to register with", email, password, name, username);
 
-    setTimeout(() => {
-      if (!password || !name || !username || !email) { 
-        if (!name) {
-          setErrorMessage("Please input your name");
-        } else if (!username) {
-          setErrorMessage("Please input in your username");
-        } else if (!email) {
-          setErrorMessage("Please input in your email");
-        } else if (!password) {
-          setErrorMessage("Please input in your password");
-        }
-        console.log("Registration failed");
-      } else {
-        console.log("Registration successful");
+    if (!password || !name || !username || !email) {
+      if (!name) {
+        setErrorMessage("Please input your name");
+      } else if (!username) {
+        setErrorMessage("Please input in your username");
+      } else if (!email) {
+        setErrorMessage("Please input in your email");
+      } else if (!password) {
+        setErrorMessage("Please input in your password");
       }
-      setIsLoading(false);
-    }, 1000);
+      console.log("Registration failed");
+    }
+
+      try {
+        await register({
+          variables: {
+            newUser: {
+              name,
+              username,
+              email,
+              password,
+            },
+          },
+        });
+        navigation.navigate("Login");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
   };
 
   return (
@@ -89,11 +119,13 @@ export default function RegisterScreen({ navigation }) {
           <Text style={tw`text-white font-bold`}>Daftar</Text>
         </TouchableOpacity>
       )}
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={tw`text-base text-center text-black mt-5`}>
-          Sudah punya akun? Silahkan <Text style={tw`text-blue-500`}>Log in</Text>
+          Sudah punya akun? Silahkan{" "}
+          <Text style={tw`text-blue-500`}>Log in</Text>
         </Text>
       </TouchableOpacity>
     </View>
   );
 }
+
