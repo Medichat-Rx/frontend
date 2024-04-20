@@ -4,11 +4,12 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerI
 import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import ProfileScreen from "../screens/ProfileScreen"; // Added import for ProfileScreen
+import ProfileScreen from "../screens/ProfileScreen";
 import tw from "tailwind-react-native-classnames";
 import MapScreen from "../screens/MapScreen";
 import ArticleScreen from '../screens/ArticleScreen';
 import DetailScreen from '../screens/DetailScreen';
+import LogoutButton from '../components/LogoutButton';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,16 +27,7 @@ function CustomDrawerContent({ isSignedIn, navigation, ...props }) {
 
       {isSignedIn && (
         <View style={tw`justify-end`}>
-          <DrawerItem
-            label="Log out"
-            onPress={() => {
-              // Handle logout logic here
-              Alert.alert("Logged Out", "You have been logged out.");
-              // For example, navigate to a login screen or reset auth state
-            }}
-            labelStyle={tw`text-white`}
-            style={tw`bg-red-500`}
-          />
+          <LogoutButton />
         </View>
       )}
     </DrawerContentScrollView>
