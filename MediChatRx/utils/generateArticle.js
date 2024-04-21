@@ -53,7 +53,7 @@ export default async function generateArticle() {
         "content": "Olahraga memiliki banyak manfaat bagi kesehatan tubuh. Manfaat olahraga antara lain meningkatkan daya tahan tubuh, mengurangi risiko penyakit jantung, menjaga berat badan ideal, dan meningkatkan kualitas tidur. Selain itu, olahraga juga dapat meningkatkan produksi hormon endorfin yang dapat membuat kita merasa lebih bahagia dan mengurangi stres."
     },
 
-      PERLU DIPERHATIKAN: tolong buat responsmu menjadi array of objectnya saja, tanpa ada tambahan kata kata lain.
+      PERLU DIPERHATIKAN: tolong buat responsmu menjadi array of objectnya saja, tanpa ada tambahan kata kata atau karakter lain.
     `;
     const { reply } = await herc.question({
       model: "v3",
