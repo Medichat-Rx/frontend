@@ -10,6 +10,7 @@ import MapScreen from "../screens/MapScreen";
 import ArticleScreen from '../screens/ArticleScreen';
 import DetailScreen from '../screens/DetailScreen';
 import LogoutButton from '../components/LogoutButton';
+import UserComplaintScreen from '../screens/UserComplaintScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -51,6 +52,7 @@ export default function MyDrawer({ isSignedIn }) {
         <>
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen name="Profile" component={ProfileScreen} />
+          <Drawer.Screen name="Complaint" component={UserComplaintScreen} />
           <Drawer.Screen name="Map" component={MapScreen} />
           <Drawer.Screen name="Articles" component={ArticleScreen} />
           <Drawer.Screen name="Detail" component={DetailScreen} options={{ drawerLabel: () => null }} />
