@@ -17,7 +17,7 @@ export default function HomeScreen() {
   const [messages, setMessages] = useState([]);
   const { loading, error, data } = useQuery(GET_CHAT_MESSAGE);
 
-  const user = { id: "06c33e8b-e835-4736-80f4-63f44b66666c" };
+  // const user = { id: "06c33e8b-e835-4736-80f4-63f44b66666c" };
 
   const addMessage = (message) => {
     setMessages([message, ...messages]);
@@ -39,7 +39,20 @@ export default function HomeScreen() {
     return <Loading />;
   }
 
-  console.log(data, "data chat message")
+  const UserId = data.getChatMessage.UserId;
+  const user = { id: UserId };
+  const chatMessages = data.getChatMessage.message.map((el) => {
+    let newEl = {
+      id: el._id,
+      author: el.UserId == UserId ? { id: UserId } : { id: "ChatBot" },
+      text: el.text,
+      type: "text",
+      createdAt: el.createdAt,
+    };
+    return newEl;
+  });
+
+  console.log(chatMessages, "data chat message");
 
   return (
     // Remove this provider if already registered elsewhere
@@ -51,7 +64,8 @@ export default function HomeScreen() {
       }}
       l10nOverride={{ inputPlaceholder: "Ada yang bisa kami bantu?" }}
       locale="en"
-      messages={messages}
+      // renderCustomMessage={data.getChatMessage.message}
+      messages={chatMessages}
       onSendPress={handleSendPress}
       user={user}
     />
