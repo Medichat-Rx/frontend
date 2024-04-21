@@ -46,14 +46,14 @@ export default async function generateArticle() {
     },
   ];
   try {
-    const instructions = `tolong buatkan 5 data article yang berhubungan dengan kesehatan atau obat-obatan berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contennya menjadi panjang dan gunakan bahasa Indonesia: 
+    const instructions = `tolong buatkan 10 data article yang berhubungan dengan kesehatan atau obat-obatan berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contennya menjadi panjang dan gunakan bahasa Indonesia: 
     {
         "id": Math.floor(Math.random() * Date.now()).toString();,
         "title": "Manfaat Olahraga Bagi Kesehatan Tubuh",
         "content": "Olahraga memiliki banyak manfaat bagi kesehatan tubuh. Manfaat olahraga antara lain meningkatkan daya tahan tubuh, mengurangi risiko penyakit jantung, menjaga berat badan ideal, dan meningkatkan kualitas tidur. Selain itu, olahraga juga dapat meningkatkan produksi hormon endorfin yang dapat membuat kita merasa lebih bahagia dan mengurangi stres."
     },
 
-      tolong buat responsmu menjadi array of objectnya saja, tanpa ada tambahan kata kata lain.
+      PERLU DIPERHATIKAN: tolong buat responsmu menjadi array of objectnya saja, tanpa ada tambahan kata kata lain.
     `;
     const { reply } = await herc.question({
       model: "v3",
