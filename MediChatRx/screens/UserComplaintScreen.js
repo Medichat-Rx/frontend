@@ -1,11 +1,9 @@
-import { useMutation } from "@apollo/client";
-import gql from "graphql-tag";
+import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import {
   View,
   Text,
   TextInput,
-  Button,
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
@@ -39,50 +37,50 @@ const UserComplaintScreen = () => {
   const [validate, setValidate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [createUserComplaint] = useMutation(USERCOMP_MUTATION);
+  const [createUserComplaint, loading, error] = useMutation(USERCOMP_MUTATION);
 
   const submitComplaint = async () => {
     setValidate("");
 
-    if (
-      !symptoms ||
-      !symptomStartTime ||
-      !medicalHistory ||
-      !triggerFactors ||
-      !allergies ||
-      !generalCondition
-    ) {
-      if (!symptoms) {
-        setValidate("Gejala tidak boleh kosong");
-      }
-      if (!symptomStartTime) {
-        setValidate("Waktu pertama kali merasakan gejala tidak boleh kosong");
-      }
-      if (!medicalHistory) {
-        setValidate("Riwayat penyakit tidak boleh kosong");
-      }
-      if (!triggerFactors) {
-        setValidate("Faktor pemicu tidak boleh kosong");
-      }
-      if (!allergies) {
-        setValidate("Alergi tidak boleh kosong");
-      }
-      if (!generalCondition) {
-        setValidate("Kondisi umum tidak boleh kosong");
-      }
+    if (!symptoms) {
+      setValidate("Tolong ceritakan mengenai keluhan apa yang kamu alami");
     }
+    if (!symptomStartTime) {
+      setValidate("Tolong isi sejak kapan gejala ini mulai dirasakan");
+    }
+    if (!medicalHistory) {
+      setValidate(
+        "Tolong isi mengenai riwayat penyakit anda, jika tidak ada anda bisa mengisi 'Tidak ada'"
+      );
+    }
+    if (!triggerFactors) {
+      setValidate(
+        "Tolong isi mengenai faktor pemicu yang mungkin memperburuk penyakit anda, jika tidak tahu anda bisa mengisi 'tidak tahu'"
+      );
+    }
+    if (!allergies) {
+      setValidate(
+        "Tolong isi jika anda mempunyai alergi terhadap suatu obat, jika tidak anda dapat mengisi 'Tidak, saya tidak memiliki alergi terhadap obat-obatan.'"
+      );
+    }
+    if (!generalCondition) {
+      setValidate(
+        "Tolong ceritakan mengenai perasaan anda secara umum selain gejala ini"
+      );
+    }
+    
     try {
       setIsLoading(true);
-      const { data } = await createUserComplaint({
+      await createUserComplaint({
         variables: {
-            newUserComplaint: {
-              drug_allergies: allergies,
-              general_feeling: generalCondition,
-              medical_history: medicalHistory,
-              symptom_start_time: symptomStartTime,
-              symptoms: symptoms,
-              triggering_factors: triggerFactors,
-            },
+          newUserComplaint: {
+            drug_allergies: allergies,
+            general_feeling: generalCondition,
+            medical_history: medicalHistory,
+            symptom_start_time: symptomStartTime,
+            symptoms: symptoms,
+            triggering_factors: triggerFactors,
+          },
         },
       });
       navigation.navigate("Home");
@@ -96,13 +94,9 @@ const UserComplaintScreen = () => {
   return (
     <ScrollView>
       <View style={tw`p-4 m-4`}>
-        {/* <Text style={tw`text-xl text-center font-bold`}>Formulir Keluhan</Text> */}
         {validate && (
           <Text style={tw`text-red-500 text-center`}>{validate}</Text>
         )}
-        {/* <Text style={tw`text-sm text-center font-thin`}>
-          Isilah sedetail mungkin agar kami bisa membantumu
-        </Text> */}
         <Text style={tw`text-lg my-4`}>Apa gejala yang Anda alami?</Text>
         <TextInput
           style={tw`h-12 border border-gray-300 rounded-full m-1 pl-7`}
