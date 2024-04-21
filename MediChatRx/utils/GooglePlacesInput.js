@@ -7,6 +7,14 @@ const GooglePlacesInput = () => {
   return (
     <GooglePlacesAutocomplete
       placeholder="Mencari rumah sakit atau klinik terdekat"
+      styles={{
+        textInput: {
+          height: 40,
+          color: 'blue',
+          backgroundColor: 'lightgray',
+          borderRadius: 20,
+        },
+      }}
       onPress={(data, details = null) => {
         console.log(data, details);
       }}
@@ -14,7 +22,7 @@ const GooglePlacesInput = () => {
         key: apiKey,
         language: "id",
         type: "establishment",
-        keyword: "hospital,clinic", // Fokus pencarian pada rumah sakit dan klinik
+        keyword: "hospital,clinic,rumah sakit, klinik",
       }}
       fetchDetails={false}
     />

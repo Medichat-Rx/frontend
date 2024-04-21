@@ -8,6 +8,7 @@ import {
 import MapView, { Marker } from "react-native-maps";
 import tw from "tailwind-react-native-classnames";
 import * as Location from "expo-location";
+import GooglePlacesInput from "../utils/GooglePlacesInput";
 
 const apiKey = "AIzaSyCnAVbCnjOnFV834XbJ11_fnzrvGd5VB1s"
 
@@ -61,22 +62,9 @@ export default function MapScreen() {
     }
   }, [searchQuery]);
 
-  let text = "Waiting..";
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (locations.length > 0) {
-    text = JSON.stringify(locations[0]);
-  }
-
   return (
     <View style={tw`flex-1`}>
-      <TextInput
-        style={tw`h-12 border border-gray-300 rounded-full m-2 pl-7`}
-        placeholder="Cari lokasi Rumah Sakit atau Klinik terdekat..."
-        value={searchQuery}
-        onChangeText={(text) => setSearchQuery(text)}
-      />
-      <Button title="Search" onPress={handleSearch} color="#0050ff" />
+      <GooglePlacesInput onPress={handleSearch} />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -108,3 +96,4 @@ export default function MapScreen() {
     </View>
   );
 }
+
