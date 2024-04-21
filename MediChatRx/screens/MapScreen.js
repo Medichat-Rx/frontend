@@ -12,15 +12,35 @@ import MapView, { Marker } from "react-native-maps";
 import tw from "tailwind-react-native-classnames";
 import * as Location from "expo-location";
 
+const apiKey = "AIzaSyCnAVbCnjOnFV834XbJ11_fnzrvGd5VB1s"
+
 export default function MapScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState(null);
+  const [locations, setLocations] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const handleSearch = () => {
-    // Implementasikan logika untuk mencari lokasi berdasarkan searchQuery
-    // Tetapkan state searchResult dengan lokasi yang ditemukan
+  const handleSearch = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${searchQuery}&key=${apiKey}`
+      );
+      const data = await response.json();
+      if (data.results.length > 0) {
+        const foundLocations = data.results.map(result => ({
+          latitude: result.geometry.location.lat,
+          longitude: result.geometry.location.lng,
+        }));
+        setLocations(foundLocations);
+      } else {
+        setErrorMsg("No locations found");
+      }
+    } catch (error) {
+      setErrorMsg("Error fetching data");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -32,7 +52,10 @@ export default function MapScreen() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+      setLocations([{
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      }]);
     })();
 
     if (searchQuery !== "") {
@@ -44,15 +67,15 @@ export default function MapScreen() {
   let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
+  } else if (locations.length > 0) {
+    text = JSON.stringify(locations[0]);
   }
 
   return (
     <View style={tw`flex-1`}>
       <TextInput
         style={tw`h-12 border border-gray-300 rounded-full m-2 pl-7`}
-        placeholder="Tentukan lokasimu saat ini..."
+        placeholder="Cari lokasi Rumah Sakit atau Klinik terdekat..."
         value={searchQuery}
         onChangeText={(text) => setSearchQuery(text)}
       />
@@ -60,24 +83,27 @@ export default function MapScreen() {
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        location && location.coords && (
+        locations.length > 0 && (
           <MapView
             style={tw`flex-1`}
             initialRegion={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
+              latitude: locations[0].latitude,
+              longitude: locations[0].longitude,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
           >
-            <Marker
-              coordinate={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-              }}
-              title="Lokasi Anda"
-              description="Ini adalah lokasi Anda."
-            />
+            {locations.map((location, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: location.latitude,
+                  longitude: location.longitude,
+                }}
+                title={`Location ${index + 1}`}
+                description={`Latitude: ${location.latitude}, Longitude: ${location.longitude}`}
+              />
+            ))}
           </MapView>
         )
       )}
