@@ -8,11 +8,11 @@ import { useApolloClient } from "@apollo/client";
 
 const LogoutButton = () => {
   const { setIsSignedIn } = useContext(AuthContext);
-  const client = useApolloClient();
+  const client = useApolloClient()
 
   const handleLogout = async () => {
     await SecureStore.deleteItemAsync("access_token");
-    await client.clearStore();
+    await client.clearStore()
 
     setIsSignedIn(false);
   };
@@ -26,11 +26,5 @@ const LogoutButton = () => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-  },
-});
 
 export default LogoutButton;
