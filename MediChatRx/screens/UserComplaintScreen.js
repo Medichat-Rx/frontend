@@ -1,3 +1,5 @@
+import { useMutation } from "@apollo/client";
+import gql from "graphql-tag";
 import React, { useState } from "react";
 import {
   View,
@@ -10,9 +12,26 @@ import {
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
+const USERCOMP_MUTATION = gql`
+  mutation Mutation($newUserComplaint: NewUserComplaint) {
+    createUserComplaint(newUserComplaint: $newUserComplaint) {
+      _id
+      UserId
+      symptoms
+      symptom_start_time
+      medical_history
+      triggering_factors
+      drug_allergies
+      general_feeling
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 const UserComplaintScreen = () => {
   const [symptoms, setSymptoms] = useState("");
-  const [timeframe, setTimeframe] = useState("");
+  const [symptomStartTime, setSymptomStartTime] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
   const [triggerFactors, setTriggerFactors] = useState("");
   const [allergies, setAllergies] = useState("");
@@ -20,12 +39,14 @@ const UserComplaintScreen = () => {
   const [validate, setValidate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const [createUserComplaint] = useMutation(USERCOMP_MUTATION);
+
   const submitComplaint = async () => {
     setValidate("");
 
     if (
       !symptoms ||
-      !timeframe ||
+      !symptomStartTime ||
       !medicalHistory ||
       !triggerFactors ||
       !allergies ||
@@ -34,8 +55,8 @@ const UserComplaintScreen = () => {
       if (!symptoms) {
         setValidate("Gejala tidak boleh kosong");
       }
-      if (!timeframe) {
-        setValidate("Jangka waktu tidak boleh kosong");
+      if (!symptomStartTime) {
+        setValidate("Waktu pertama kali merasakan gejala tidak boleh kosong");
       }
       if (!medicalHistory) {
         setValidate("Riwayat penyakit tidak boleh kosong");
@@ -49,9 +70,25 @@ const UserComplaintScreen = () => {
       if (!generalCondition) {
         setValidate("Kondisi umum tidak boleh kosong");
       }
-    } else {
+    }
+    try {
       setIsLoading(true);
-      // Add your API call here
+      const { data } = await createUserComplaint({
+        variables: {
+            newUserComplaint: {
+              drug_allergies: allergies,
+              general_feeling: generalCondition,
+              medical_history: medicalHistory,
+              symptom_start_time: symptomStartTime,
+              symptoms: symptoms,
+              triggering_factors: triggerFactors,
+            },
+        },
+      });
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -77,8 +114,8 @@ const UserComplaintScreen = () => {
         </Text>
         <TextInput
           style={tw`h-12 border border-gray-300 rounded-full m-1 pl-7`}
-          value={timeframe}
-          onChangeText={setTimeframe}
+          value={symptomStartTime}
+          onChangeText={setSymptomStartTime}
         />
         <Text style={tw`text-lg my-4`}>
           Apakah Anda memiliki riwayat penyakit tertentu atau sedang mengonsumsi
