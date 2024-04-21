@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Platform,
-  StyleSheet,
   View,
   TextInput,
   Button,
   ActivityIndicator,
-  Text,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import tw from "tailwind-react-native-classnames";
@@ -24,9 +21,10 @@ export default function MapScreen() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${searchQuery}&key=${apiKey}`
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${searchQuery}&radius=5000&type=hospital&key=${apiKey}`
       );
       const data = await response.json();
+      console.log(data.results);
       if (data.results.length > 0) {
         const foundLocations = data.results.map(result => ({
           latitude: result.geometry.location.lat,
@@ -59,7 +57,6 @@ export default function MapScreen() {
     })();
 
     if (searchQuery !== "") {
-      // setLoading(true);
       handleSearch();
     }
   }, [searchQuery]);
@@ -100,7 +97,7 @@ export default function MapScreen() {
                   latitude: location.latitude,
                   longitude: location.longitude,
                 }}
-                title={`Location ${index + 1}`}
+                title={`Lokasi Anda saat ini`}
                 description={`Latitude: ${location.latitude}, Longitude: ${location.longitude}`}
               />
             ))}
