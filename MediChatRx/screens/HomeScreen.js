@@ -41,18 +41,23 @@ export default function HomeScreen() {
 
   const UserId = data.getChatMessage.UserId;
   const user = { id: UserId };
-  const chatMessages = data.getChatMessage.message.map((el) => {
-    let newEl = {
-      id: el._id,
-      author: el.UserId == UserId ? { id: UserId } : { id: "ChatBot" },
-      text: el.text,
-      type: "text",
-      createdAt: el.createdAt,
-    };
-    return newEl;
-  });
+  const chatMessages = data.getChatMessage.message
+    .slice() // Membuat salinan array untuk mencegah mutasi pada array asli
+    .reverse() // Membalik urutan array
+    .map((el) => {
+      let newEl = {
+        id: el._id,
+        author: el.UserId == UserId ? { id: UserId } : { id: "ChatBot" },
+        text: el.text,
+        type: "text",
+        createdAt: el.createdAt,
+      };
+      return newEl;
+    });
 
-  console.log(chatMessages, "data chat message");
+  // console.log(chatMessages, "data chat message");
+
+  console.log(messages);
 
   return (
     // Remove this provider if already registered elsewhere
@@ -66,6 +71,7 @@ export default function HomeScreen() {
       locale="en"
       // renderCustomMessage={data.getChatMessage.message}
       messages={chatMessages}
+      enableAnimation="true"
       onSendPress={handleSendPress}
       user={user}
     />
