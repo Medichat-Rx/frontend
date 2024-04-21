@@ -43,11 +43,11 @@ export default function RegisterScreen({ navigation }) {
       if (!name) {
         setErrorMessage("Please input your name");
       } else if (!username) {
-        setErrorMessage("Please input in your username");
+        setErrorMessage("Please input your username");
       } else if (!email) {
-        setErrorMessage("Please input in your email");
+        setErrorMessage("Please input your email");
       } else if (!password) {
-        setErrorMessage("Please input in your password");
+        setErrorMessage("Please input your password");
       }
       console.log("Registration failed");
     }

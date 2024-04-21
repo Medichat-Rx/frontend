@@ -27,7 +27,7 @@ const USERCOMP_MUTATION = gql`
   }
 `;
 
-const UserComplaintScreen = () => {
+const UserComplaintScreen = ({navigation}) => {
   const [symptoms, setSymptoms] = useState("");
   const [symptomStartTime, setSymptomStartTime] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
