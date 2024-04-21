@@ -20,6 +20,10 @@ const UserComplaintScreen = () => {
     // Handle form submission
   };
 
+  const isFormValid = () => {
+    return Object.values(formData).every((value) => value !== "");
+  };
+
   return (
     <ScrollView>
       <View style={tw`p-4 m-4`}>
@@ -78,6 +82,7 @@ const UserComplaintScreen = () => {
           title="Submit"
           onPress={submitComplaint}
           style={tw`bg-blue-500 text-white rounded-full p-2 m-4`}
+          disabled={!isFormValid()}
         />
         <View style={tw`mb-4`} />
       </View>
