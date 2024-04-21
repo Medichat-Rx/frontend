@@ -39,6 +39,8 @@ export default function HomeScreen() {
     return <Loading />;
   }
 
+  console.log(Date.now())
+
   const UserId = data.getChatMessage.UserId;
   const user = { id: UserId };
   const chatMessages = data.getChatMessage.message
@@ -50,14 +52,12 @@ export default function HomeScreen() {
         author: el.UserId == UserId ? { id: UserId } : { id: "ChatBot" },
         text: el.text,
         type: "text",
-        createdAt: el.createdAt,
+        createdAt: Number(el.createdAt),
       };
       return newEl;
     });
 
-  // console.log(chatMessages, "data chat message");
-
-  console.log(messages);
+  console.log(chatMessages, "data chat message");
 
   return (
     // Remove this provider if already registered elsewhere
