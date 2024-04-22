@@ -13,7 +13,7 @@ import * as SecureStore from "expo-secure-store";
 //   cache: new InMemoryCache(),
 // });
 const httpLink = createHttpLink({
-  uri: "https://f827-180-254-76-192.ngrok-free.app/",
+  uri: "https://ef52-140-213-11-221.ngrok-free.app",
 });
 
 const authLink = setContext(async (_, { headers }) => {

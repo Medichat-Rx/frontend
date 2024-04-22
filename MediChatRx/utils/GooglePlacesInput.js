@@ -9,7 +9,7 @@ const GooglePlacesInput = () => {
       placeholder="Mencari rumah sakit atau klinik terdekat"
       styles={{
         textInput: {
-          height: 40,
+          height: 50,
           color: 'blue',
           backgroundColor: 'lightgray',
           borderRadius: 20,
@@ -22,7 +22,8 @@ const GooglePlacesInput = () => {
         key: apiKey,
         language: "id",
         type: "establishment",
-        keyword: "hospital,clinic,rumah sakit, klinik",
+        keyword: "hospital,clinic,rumah sakit,klinik",
+        radius: 500
       }}
       fetchDetails={false}
     />

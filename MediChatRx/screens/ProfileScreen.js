@@ -1,12 +1,27 @@
 import { useQuery } from "@apollo/client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { GET_CURRENT_LOG_PROFILE } from "../queries/GetCurrentLogProfile";
 import Loading from "../components/LoadingComponent";
+import * as Location from 'expo-location';
 
 export default function ProfileScreen() {
   const { loading, error, data } = useQuery(GET_CURRENT_LOG_PROFILE);
+  const [currentLocation, setCurrentLocation] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setCurrentLocation(location);
+    })();
+  }, []);
 
   if (loading) {
     console.log("Fetching Profile.... from profile screen");
@@ -20,7 +35,7 @@ export default function ProfileScreen() {
     email: "johndoe@example.com",
     imageUrl:
       "https://i2.wp.com/www.marismith.com/wp-content/uploads/2014/07/facebook-profile-blank-face.jpeg",
-    location: "",
+    location: currentLocation ? `${currentLocation.coords.latitude}, ${currentLocation.coords.longitude}` : "",
   };
 
   return (
@@ -46,7 +61,11 @@ export default function ProfileScreen() {
           {data.findCurrentLogUser.email}
         </Text>
         <Text style={tw`text-lg mb-1 font-semibold`}>Location</Text>
-        <Text style={tw`text-base text-gray-800 mb-4`}>somewhere</Text>
+        <Text style={tw`text-base text-gray-800 mb-4`}>{currentLocation ? (
+        <Text>lat: {currentLocation.coords.latitude}, lon: {currentLocation.coords.longitude}</Text>
+      ) : (
+        <Text>Loading...</Text>
+      )}</Text>
 
         <TouchableOpacity
           style={tw`mt-10 w-full bg-blue-500 p-3 rounded-full mx-4`}
@@ -57,3 +76,5 @@ export default function ProfileScreen() {
     </View>
   );
 }
+
+
