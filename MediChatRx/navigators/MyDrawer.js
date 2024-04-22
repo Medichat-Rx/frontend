@@ -22,6 +22,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome5,
   Entypo,
+  SimpleLineIcons,
 } from "@expo/vector-icons";
 
 const StyledView = styled(View);
@@ -33,7 +34,7 @@ const Drawer = createDrawerNavigator();
 function CustomDrawerContent({ isSignedIn, ...props }) {
   return (
     <DrawerContentScrollView {...props}>
-      <StyledView className="flex items-center p-5 font-poppins-regular">
+      <StyledView className="flex items-center p-5 font-poppins-regular pt-10">
         <Image
           source={{
             uri: "https://assets.kompasiana.com/items/album/2021/03/24/blank-profile-picture-973460-1280-605aadc08ede4874e1153a12.png?t=o&v=300",
@@ -48,12 +49,10 @@ function CustomDrawerContent({ isSignedIn, ...props }) {
         </StyledText>
       </StyledView>
 
-      <StyledView className="flex justify-between">
-        <DrawerItemList {...props} />
+      <DrawerItemList {...props} />
 
-        <View className="bg-white justify-end">
-          <LogoutButton />
-        </View>
+      <StyledView className="mt-5">
+        <LogoutButton />
       </StyledView>
     </DrawerContentScrollView>
   );
@@ -68,8 +67,17 @@ export default function MyDrawer({ isSignedIn }) {
           drawerStyle: {
             backgroundColor: "#020101",
           },
+          headerTitleStyle: {
+            fontFamily: "Poppins-Bold",
+          },
+          drawerContentContainerStyle: { backgroundColor: "white" },
+          drawerType: "back",
           drawerActiveTintColor: "#00b5e3",
           drawerInactiveTintColor: "white",
+          drawerLabelStyle: {
+            fontFamily: "Poppins-Bold", // Ganti dengan nama font yang Anda inginkan
+          },
+          // drawerItemStyle: {backgroundColor: "white", marginTop: ""},
           drawerIcon: (props) => {
             if (route.name == "Chat") {
               return <Ionicons name="chatbubbles" size={24} color="white" />;
