@@ -63,7 +63,7 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={tw` flex-1 bg-black`}>
+    <View className="flex-1 bg-black">
       <StatusBar style="auto" />
 
       <View style={tw`relative flex-1`}>
@@ -85,7 +85,7 @@ export default function LoginScreen({ navigation }) {
       </View>
 
       <View
-        style={tw`flex-1 items-center justify-center p-6 rounded-t-3xl bg-white`}
+        className="flex-1 items-center justify-center p-6 rounded-t-3xl bg-white"
       >
         <Text style={tw`text-base text-black mb-5 font-bold`}>
           Silahkan Log in
@@ -122,6 +122,8 @@ export default function LoginScreen({ navigation }) {
             <Text style={tw`text-blue-500`}>Register</Text>
           </Text>
         </TouchableOpacity>
+
+        
       </View>
     </View>
   );
