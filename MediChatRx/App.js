@@ -9,11 +9,23 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 import MyDrawer from "./navigators/MyDrawer";
+import { useFonts } from "expo-font";
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   // const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const [loaded] = useFonts({
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-Italic": require("./assets/fonts/Poppins-Italic.ttf"),
+    "Poppins-Light": require("./assets/fonts/Poppins-Light.ttf"),
+    "Poppins-BoldItalic": require("./assets/fonts/Poppins-BoldItalic.ttf"),
+    "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
+    "Lexend-Regular": require("./assets/fonts/Lexend-Regular.ttf"),
+    "Lexend-Bold": require("./assets/fonts/Lexend-Bold.ttf"),
+
+  });
 
   const getToken = async () => {
     try {
@@ -38,9 +50,16 @@ export default function App() {
   if (!isReady) {
     return (
       <View style={styles.splashScreen}>
-        <Image source={require('./assets/i-icon.png')} style={styles.splashImage} />
+        <Image
+          source={require("./assets/i-icon.png")}
+          style={styles.splashImage}
+        />
       </View>
     );
+  }
+
+  if (!loaded) {
+    return null;
   }
 
   return (

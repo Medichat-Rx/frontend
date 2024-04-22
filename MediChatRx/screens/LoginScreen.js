@@ -12,6 +12,8 @@ import {
 import tw from "tailwind-react-native-classnames";
 import { AuthContext } from "../context/AuthContext";
 import * as SecureStore from "expo-secure-store";
+import { Ionicons, Entypo } from "@expo/vector-icons";
+import { styled } from "nativewind";
 
 const LOGIN_MUTATION = gql`
   mutation Mutation($email: String!, $password: String!) {
@@ -28,6 +30,9 @@ export default function LoginScreen({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { setIsSignedIn } = useContext(AuthContext);
+
+  
+  const StyledTouchableOpacity = styled(TouchableOpacity);
 
   const [loginInput, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
@@ -63,19 +68,19 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View className="flex-1 bg-black">
+    <View className="flex-1 bg-blue-100">
       <StatusBar style="auto" />
 
-      <View style={tw`relative flex-1`}>
-        <View style={tw`bg-white pt-6`}></View>
+      <View className="relative flex-1">
+        <View className="bg-blue-100 pt-6"></View>
         <Image
-          style={tw`w-full h-full pt-10`}
+          className="w-full h-full pt-10"
           src="https://img.freepik.com/premium-vector/blue-abstract-background-health_66029-25.jpg?w=740"
         ></Image>
-        <Text
-          style={tw`absolute top-28 left-0 right-0 text-center text-black text-3xl font-bold`}
-        >
-          Selamat Datang di MediChat Rx
+        <Text className="absolute top-28 left-0 right-0 text-center text-black text-3xl font-lexend-bold">
+          Selamat Datang di{" "}
+          <Text className="text-green-500 font-poppins-boldItalic">MediChat</Text>{" "}
+          <Text className="text-blue-600 font-poppins-bold">Rx</Text>
         </Text>
 
         <Image
@@ -84,46 +89,54 @@ export default function LoginScreen({ navigation }) {
         ></Image>
       </View>
 
-      <View
-        className="flex-1 items-center justify-center p-6 rounded-t-3xl bg-white"
-      >
-        <Text className="text-xl text-slate-800 self-start mb-5 font-bold ml-2">
+      <View className="flex-1 items-center justify-center p-6 rounded-t-3xl bg-white font-poppins-regular shadow-lg">
+        <Text className="text-xl text-blue-900 self-start mb-5 ml-2 font-poppins-bold">
           Silahkan Login
         </Text>
         {errorMessage && (
           <Text style={tw`text-red-500 mb-3`}>{errorMessage}</Text>
         )}
-        <TextInput
-          className="h-12 my-2 border border-gray-300 px-4 w-full  bg-white rounded-full"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Email"
-        />
-        <TextInput
-          className="h-12 my-2 border border-gray-300 px-4 w-full  bg-white rounded-full"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
+        <View className="flex flex-row items-center">
+          <View className="flex flex-row items-center px-5 gap-5 ">
+            <Ionicons name="people-outline" size={24} color="black" />
+            <TextInput
+              className="h-12 my-2 border-gray-300 border-b  px-4 w-64 bg-white font-poppins-regular "
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Email"
+            />
+          </View>
+        </View>
+
+        <View className="flex flex-row items-center">
+          <View className="flex flex-row items-center px-5 gap-5 ">
+            <Entypo name="key" size={24} color="black" />
+            <TextInput
+              className="h-12 my-2 border-gray-300 border-b  px-4 w-64 bg-white font-poppins-regular "
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Password"
+              secureTextEntry={true}
+            />
+          </View>
+        </View>
+
         {isLoading ? (
           <ActivityIndicator size="large" color="#1DA1F2" />
         ) : (
-          <TouchableOpacity
-            className="items-center bg-blue-400 p-3 w-full rounded-2xl mt-4"
+          <StyledTouchableOpacity
+            className="items-center bg-blue-600 p-3 w-full rounded-2xl mt-4 shadow"
             onPress={handleLogin}
           >
-            <Text style={tw`text-white font-bold`}>Log in</Text>
-          </TouchableOpacity>
+            <Text style={tw`text-white font-bold`}>LOGIN</Text>
+          </StyledTouchableOpacity>
         )}
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={tw`text-base text-center text-black mt-5`}>
+          <Text className=" text-center text-black mt-5 font-poppins-regular">
             Belum punya akun? Silahkan{" "}
-            <Text style={tw`text-blue-500`}>Register</Text>
+            <Text className="text-blue-500 font-bold">Register</Text>
           </Text>
         </TouchableOpacity>
-
-        
       </View>
     </View>
   );
