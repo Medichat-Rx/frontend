@@ -87,20 +87,20 @@ export default function LoginScreen({ navigation }) {
       <View
         className="flex-1 items-center justify-center p-6 rounded-t-3xl bg-white"
       >
-        <Text style={tw`text-base text-black mb-5 font-bold`}>
-          Silahkan Log in
+        <Text className="text-xl text-slate-800 self-start mb-5 font-bold ml-2">
+          Silahkan Login
         </Text>
         {errorMessage && (
           <Text style={tw`text-red-500 mb-3`}>{errorMessage}</Text>
         )}
         <TextInput
-          style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
+          className="h-12 my-2 border border-gray-300 px-4 w-full  bg-white rounded-full"
           value={email}
           onChangeText={setEmail}
           placeholder="Email"
         />
         <TextInput
-          style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
+          className="h-12 my-2 border border-gray-300 px-4 w-full  bg-white rounded-full"
           value={password}
           onChangeText={setPassword}
           placeholder="Password"
@@ -110,7 +110,7 @@ export default function LoginScreen({ navigation }) {
           <ActivityIndicator size="large" color="#1DA1F2" />
         ) : (
           <TouchableOpacity
-            style={tw`items-center bg-blue-400 p-3 w-4/5 rounded-md mt-4`}
+            className="items-center bg-blue-400 p-3 w-full rounded-2xl mt-4"
             onPress={handleLogin}
           >
             <Text style={tw`text-white font-bold`}>Log in</Text>
