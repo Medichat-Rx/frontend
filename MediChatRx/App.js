@@ -10,6 +10,7 @@ import { AuthContext } from "./context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 import MyDrawer from "./navigators/MyDrawer";
 import { useFonts } from "expo-font";
+import MyStack from "./navigators/MyStack";
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -24,7 +25,6 @@ export default function App() {
     "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
     "Lexend-Regular": require("./assets/fonts/Lexend-Regular.ttf"),
     "Lexend-Bold": require("./assets/fonts/Lexend-Bold.ttf"),
-
   });
 
   const getToken = async () => {
@@ -70,9 +70,7 @@ export default function App() {
       }}
     >
       <ApolloProvider client={client}>
-        <NavigationContainer>
-          <MyDrawer isSignedIn={isSignedIn} />
-        </NavigationContainer>
+        <MyStack />
       </ApolloProvider>
     </AuthContext.Provider>
   );
