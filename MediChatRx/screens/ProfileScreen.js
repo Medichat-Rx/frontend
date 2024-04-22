@@ -6,7 +6,7 @@ import { GET_CURRENT_LOG_PROFILE } from "../queries/GetCurrentLogProfile";
 import Loading from "../components/LoadingComponent";
 import * as Location from 'expo-location';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({navigation}) {
   const { loading, error, data } = useQuery(GET_CURRENT_LOG_PROFILE);
   const [currentLocation, setCurrentLocation] = useState(null);
 
@@ -62,7 +62,9 @@ export default function ProfileScreen() {
         </Text>
         <Text style={tw`text-lg mb-1 font-semibold`}>Location</Text>
         <Text style={tw`text-base text-gray-800 mb-4`}>{currentLocation ? (
-        <Text>lat: {currentLocation.coords.latitude}, lon: {currentLocation.coords.longitude}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Map")}>
+          <Text style={{color: "#00b5e3"}}>lat: {currentLocation.coords.latitude}, lon: {currentLocation.coords.longitude}</Text>
+        </TouchableOpacity>
       ) : (
         <Text>Loading...</Text>
       )}</Text>
