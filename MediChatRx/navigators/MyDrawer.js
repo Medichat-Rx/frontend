@@ -24,6 +24,9 @@ import {
   Entypo,
   SimpleLineIcons,
 } from "@expo/vector-icons";
+import { useQuery } from "@apollo/client";
+import { GET_CURRENT_LOG_PROFILE } from "../queries/GetCurrentLogProfile";
+import Loading from "../components/LoadingComponent";
 
 const StyledView = styled(View);
 const StyledImage = styled(Image);
@@ -32,6 +35,11 @@ const StyledText = styled(Text);
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent({ isSignedIn, ...props }) {
+  const { loading, error, data } = useQuery(GET_CURRENT_LOG_PROFILE);
+  if (loading) {
+    console.log("fetching profile... from drawer");
+    return <Loading />;
+  }
   return (
     <DrawerContentScrollView {...props}>
       <StyledView className="flex items-center p-5 font-poppins-regular pt-10">
@@ -42,10 +50,10 @@ function CustomDrawerContent({ isSignedIn, ...props }) {
           style={tw`w-24 h-24 rounded-full m-3`}
         />
         <StyledText className="text-lg text-white font-poppins-bold">
-          Username
+          Hai, {data.findCurrentLogUser.name}
         </StyledText>
         <StyledText className="text-white font-poppins-regular">
-          {"@username"}
+          {`@${data.findCurrentLogUser.username}`}
         </StyledText>
       </StyledView>
 
