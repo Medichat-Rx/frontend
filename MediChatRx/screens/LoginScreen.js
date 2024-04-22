@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
 
   const [loginInput, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
-  const handleLogin = async () => { 
+  const handleLogin = async () => {
     setIsLoading(true);
     setErrorMessage("");
     // console.log("Attempting to login with", email, password);
@@ -39,17 +39,20 @@ export default function LoginScreen({ navigation }) {
     try {
       const { data } = await loginInput({
         variables: {
-            email,
-            password,
-          },
+          email,
+          password,
+        },
       });
 
-      console.log(data.login.email, "<<<<<<<<<<<<")
-      const test = await SecureStore.setItemAsync("access_token", data.login.access_token);
-      console.log(test)
-      const check = await SecureStore.getItemAsync('access_token')
-      console.log(check, "<<<<<")
-      console.log("Login success")
+      console.log(data.login.email, "<<<<<<<<<<<<");
+      const test = await SecureStore.setItemAsync(
+        "access_token",
+        data.login.access_token
+      );
+      console.log(test);
+      const check = await SecureStore.getItemAsync("access_token");
+      console.log(check, "<<<<<");
+      console.log("Login success");
       setIsSignedIn(true);
     } catch (error) {
       setErrorMessage("Invalid email or password");
@@ -60,47 +63,66 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={tw`flex-1 items-center justify-center bg-white m-5`}>
+    <View style={tw` flex-1 bg-black`}>
       <StatusBar style="auto" />
 
-      <Text style={tw`text-3xl text-center font-bold mb-5 text-blue-800`}>
-        Selamat Datang di MediChat Rx
-      </Text>
-      <Text style={tw`text-base text-center text-black mb-5`}>
-        Silahkan Log in
-      </Text>
-      {errorMessage && (
-        <Text style={tw`text-red-500 mb-3`}>{errorMessage}</Text>
-      )}
-      <TextInput
-        style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-      />
-      <TextInput
-        style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Password"
-        secureTextEntry={true}
-      />
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#1DA1F2" />
-      ) : (
-        <TouchableOpacity
-          style={tw`items-center bg-blue-400 p-3 w-4/5 rounded-md mt-4`}
-          onPress={handleLogin}
+      <View style={tw`relative flex-1`}>
+        <View style={tw`bg-white pt-6`}></View>
+        <Image
+          style={tw`w-full h-full pt-10`}
+          src="https://img.freepik.com/premium-vector/blue-abstract-background-health_66029-25.jpg?w=740"
+        ></Image>
+        <Text
+          style={tw`absolute top-28 left-0 right-0 text-center text-black text-3xl font-bold`}
         >
-          <Text style={tw`text-white font-bold`}>Log in</Text>
-        </TouchableOpacity>
-      )}
-      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text style={tw`text-base text-center text-black mt-5`}>
-          Belum punya akun? Silahkan{" "}
-          <Text style={tw`text-blue-500`}>Register</Text>
+          Selamat Datang di MediChat Rx
         </Text>
-      </TouchableOpacity>
+
+        <Image
+          source={require("../assets/i-icon.png")}
+          style={tw`absolute left-1/2 top-48 w-1/2 h-1/2`}
+        ></Image>
+      </View>
+
+      <View
+        style={tw`flex-1 items-center justify-center p-6 rounded-t-3xl bg-white`}
+      >
+        <Text style={tw`text-base text-black mb-5 font-bold`}>
+          Silahkan Log in
+        </Text>
+        {errorMessage && (
+          <Text style={tw`text-red-500 mb-3`}>{errorMessage}</Text>
+        )}
+        <TextInput
+          style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email"
+        />
+        <TextInput
+          style={tw`h-12 my-2 border border-gray-300 px-4 w-4/5 bg-white rounded-full`}
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+          secureTextEntry={true}
+        />
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#1DA1F2" />
+        ) : (
+          <TouchableOpacity
+            style={tw`items-center bg-blue-400 p-3 w-4/5 rounded-md mt-4`}
+            onPress={handleLogin}
+          >
+            <Text style={tw`text-white font-bold`}>Log in</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+          <Text style={tw`text-base text-center text-black mt-5`}>
+            Belum punya akun? Silahkan{" "}
+            <Text style={tw`text-blue-500`}>Register</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

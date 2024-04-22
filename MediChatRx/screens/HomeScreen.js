@@ -93,6 +93,7 @@ export default function HomeScreen() {
       locale="en"
       // renderCustomMessage={data.getChatMessage.message}
       // renderBubble={renderBubble}
+      onMessagePress={console.log("pressed")}
       showUserAvatars="true"
       messages={messages}
       enableAnimation="true"
