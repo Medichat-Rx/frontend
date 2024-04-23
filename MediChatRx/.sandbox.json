@@ -1,0 +1,284 @@
+[
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Rumah Sakit Olahraga Nasional",
+    "opening_hours": {
+      "open_now": true
+    },
+    "photos": [
+      ["Object"]
+    ],
+    "place_id": "ChIJOY7vQsDsaS4REwNTxG1y9xY",
+    "plus_code": {
+      "compound_code": "JVJV+H4 Cibubur, East Jakarta City, Jakarta",
+      "global_code": "6P58JVJV+H4"
+    },
+    "rating": 4.6,
+    "reference": "ChIJOY7vQsDsaS4REwNTxG1y9xY",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 89,
+    "vicinity": "Jl. Jambore No.1, RT.8/RW.7, Cibubur, Kota Jakarta Timur"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Meilia Hospital Cibubur",
+    "opening_hours": {
+      "open_now": true
+    },
+    "photos": [
+      ["Object"]
+    ],
+    "place_id": "ChIJtUYZTKjsaS4RovnMWZTx8eE",
+    "plus_code": {
+      "compound_code": "JWF2+9Q Harjamukti, Depok City, West Java",
+      "global_code": "6P58JWF2+9Q"
+    },
+    "rating": 4.3,
+    "reference": "ChIJtUYZTKjsaS4RovnMWZTx8eE",
+    "scope": "GOOGLE",
+    "types": [
+      "physiotherapist",
+      "pharmacy",
+      "hospital",
+      "doctor",
+      "health",
+      "store",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 1760,
+    "vicinity": "Jl. Alternatif Cibubur No.1, Harjamukti, Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Rumah Sehat Barokah Ayufi",
+    "place_id": "ChIJibwKAYXsaS4RG8HFcCmpW0g",
+    "plus_code": {
+      "compound_code": "JVHF+CP Cisalak Pasar, Depok City, West Java",
+      "global_code": "6P58JVHF+CP"
+    },
+    "rating": 1,
+    "reference": "ChIJibwKAYXsaS4RG8HFcCmpW0g",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 1,
+    "vicinity": "Jl. Radar Auri No.8 3, RT.3/RW.10, Cisalak Ps., Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Rs Melia , Poli Bedah",
+    "place_id": "ChIJd6kUqtftaS4RF_VB3l04Gq4",
+    "rating": 5,
+    "reference": "ChIJd6kUqtftaS4RF_VB3l04Gq4",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 3,
+    "vicinity": "JWF2+3PH, Harjamukti, Depok City"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Rumah Bersalin El' Rahpa",
+    "place_id": "ChIJu4wXEJvsaS4Rm0igvLxa6IM",
+    "plus_code": {
+      "compound_code": "JVHH+4J Mekarsari, Depok City, West Java",
+      "global_code": "6P58JVHH+4J"
+    },
+    "rating": 0,
+    "reference": "ChIJu4wXEJvsaS4Rm0igvLxa6IM",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 0,
+    "vicinity": "Jl. Radar Auri No.3, Mekarsari, Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Kemang Order Gojek Grab",
+    "opening_hours": {
+      "open_now": true
+    },
+    "place_id": "ChIJkznkw23raS4RHA3HXWcdhEE",
+    "rating": 0,
+    "reference": "ChIJkznkw23raS4RHA3HXWcdhEE",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 0,
+    "vicinity": "JV3H+XFC, Jl. Kemang, Sukatani, Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "klinik pratama",
+    "place_id": "ChIJsxj7raTraS4Rv8khzK3ZkwU",
+    "rating": 0,
+    "reference": "ChIJsxj7raTraS4Rv8khzK3ZkwU",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 0,
+    "vicinity": "JV5F+3PP, Jl. Kramat, Sukatani, Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Kebuli Alakita",
+    "opening_hours": {
+      "open_now": true
+    },
+    "photos": [
+      ["Object"]
+    ],
+    "place_id": "ChIJoc46JzDtaS4RQyDDp2nv9sE",
+    "plus_code": {
+      "compound_code": "JVJF+HG Mekarsari, Depok City, West Java",
+      "global_code": "6P58JVJF+HG"
+    },
+    "rating": 4.2,
+    "reference": "ChIJoc46JzDtaS4RQyDDp2nv9sE",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 5,
+    "vicinity": "Jl. Kp. Tipar Tengah No.56, Mekarsari, Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Sudar",
+    "place_id": "ChIJT0AseNvraS4RBZZ7eANU7o8",
+    "plus_code": {
+      "compound_code": "JV8R+V5 Harjamukti, Depok City, West Java",
+      "global_code": "6P58JV8R+V5"
+    },
+    "rating": 0,
+    "reference": "ChIJT0AseNvraS4RBZZ7eANU7o8",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 0,
+    "vicinity": "Jl. Anggrek VI No.30 Blok M, RT.2/RW.10, Harjamukti, Kota Depok"
+  },
+  {
+    "business_status": "OPERATIONAL",
+    "geometry": {
+      "location": ["Object"],
+      "viewport": ["Object"]
+    },
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/hospital-71.png",
+    "icon_background_color": "#F88181",
+    "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hospital-H_pinlet",
+    "name": "Klinik dr didi",
+    "photos": [
+      ["Object"]
+    ],
+    "place_id": "ChIJjy0b1dTraS4R3afBXCmaPvU",
+    "rating": 0,
+    "reference": "ChIJjy0b1dTraS4R3afBXCmaPvU",
+    "scope": "GOOGLE",
+    "types": [
+      "hospital",
+      "health",
+      "point_of_interest",
+      "establishment"
+    ],
+    "user_ratings_total": 0,
+    "vicinity": "JV7F+H48, Jl. Pekapuran, Curug, Kota Depok"
+  }
+]

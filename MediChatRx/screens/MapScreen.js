@@ -30,12 +30,12 @@ const MapScreen = () => {
       });
       // Axios
       try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`);
-        // console.log(response)
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&key=${apiKey}`);
+        // console.log(response.data.results)
         if (response.data.results.length > 0) {
-          const hospitals = response.data.results.filter(place => place.types.includes('hospital'))
+          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && place.types.includes('health') && !place.name.includes("ojek") && !place.name.includes("makan") && !place.name.includes("Restoran") && !place.name.includes("Barber"))
           // .slice(0, 3);
-          const clinics = response.data.results.filter(place => place.types.some(type => type.includes('clinic')))
+          const clinics = response.data.results.filter(place => place.name.includes('Klinik') || place.name.includes('klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi'))
           // .slice(0, 3);
           setSelectedPlaces([...hospitals, ...clinics]);
         }
@@ -70,7 +70,7 @@ const MapScreen = () => {
               }}
               title={place.name}
               description={place.vicinity}
-              pinColor={place.name.includes('klinik') ? "orange" : "green"}
+              pinColor={place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? "#01593c" : "#013c3e"}
               // icon={"🏥"}
             />
           ))}
