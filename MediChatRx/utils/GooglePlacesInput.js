@@ -22,7 +22,7 @@ const GooglePlacesInput = () => {
         key: apiKey,
         language: "id",
         type: "establishment",
-        keyword: "hospital,clinic,rumah sakit,klinik",
+        keyword: [ "hospital", "health", "point_of_interest", "establishment"],
         radius: 500
       }}
       fetchDetails={false}
