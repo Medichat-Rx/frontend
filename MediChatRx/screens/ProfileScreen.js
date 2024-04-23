@@ -8,10 +8,14 @@ import { createAvatar } from "@dicebear/core";
 import { notionists } from "@dicebear/collection";
 import { SvgXml } from "react-native-svg";
 import * as Location from 'expo-location';
+import axios from 'axios';
+
+const apiKey = "AIzaSyCnAVbCnjOnFV834XbJ11_fnzrvGd5VB1s"
 
 export default function ProfileScreen({navigation}) {
   const { loading, error, data } = useQuery(GET_CURRENT_LOG_PROFILE);
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [cityName, setCityName] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -23,6 +27,12 @@ export default function ProfileScreen({navigation}) {
 
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLocation(location);
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.coords.latitude},${location.coords.longitude}&key=${apiKey}`);
+
+      // console.log(response.data.results[0].address_components)
+      const addressComponents = response.data.results[0].address_components;
+      const cityComponent = addressComponents.find(component => component.types.includes("administrative_area_level_2"));
+      setCityName(cityComponent ? cityComponent.long_name : "Unknown Location");
     })();
   }, []);
 
@@ -38,7 +48,7 @@ export default function ProfileScreen({navigation}) {
     email: "johndoe@example.com",
     imageUrl:
       "https://i2.wp.com/www.marismith.com/wp-content/uploads/2014/07/facebook-profile-blank-face.jpeg",
-    location: currentLocation ? `${currentLocation.coords.latitude}, ${currentLocation.coords.longitude}` : "",
+    location: cityName,
   };
 
   const avatar = createAvatar(notionists, {
@@ -65,10 +75,10 @@ export default function ProfileScreen({navigation}) {
         <Text style={tw`text-base text-gray-800 mb-1`}>
           {data.findCurrentLogUser.email}
         </Text>
-        <Text style={tw`text-lg mb-1 font-semibold`}>Location</Text>
-        <Text style={tw`text-base text-gray-800 mb-4`}>{currentLocation ? (
+        <Text style={tw`text-lg mb-1 font-semibold`}>Current Location</Text>
+        <Text style={tw`text-base text-gray-800 mb-4`}>{cityName ? (
         <TouchableOpacity onPress={() => navigation.navigate("Map")}>
-          <Text style={{color: "#00b5e3"}}>lat: {currentLocation.coords.latitude}, lon: {currentLocation.coords.longitude}</Text>
+          <Text>{cityName}</Text>
         </TouchableOpacity>
       ) : (
         <Text>Loading...</Text>
@@ -83,5 +93,3 @@ export default function ProfileScreen({navigation}) {
     </View>
   );
 }
-
-
