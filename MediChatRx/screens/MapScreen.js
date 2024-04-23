@@ -30,7 +30,7 @@ const MapScreen = () => {
       });
       // Axios
       try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=5000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`);
         if (response.data.results.length > 0) {
           const firstResult = response.data.results[0];
           setSelectedPlace({
