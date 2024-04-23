@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import generateArticle from "../utils/generateArticle";
 import { GET_USER_COMPLAINT } from "../queries/GetUserComplaint";
 import { useQuery } from "@apollo/client";
-import Loading from "../components/LoadingComponent";
+// import Loading from "../components/LoadingComponent";
 
 const ArticleScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([]);
@@ -13,7 +13,7 @@ const ArticleScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const { data, loading: loading1, error } = useQuery(GET_USER_COMPLAINT);
 
-  const fetchData = async () => {
+  const fetchData = async (data) => {
     try {
       const result = await generateArticle(data);
       setArticles(result);
@@ -25,23 +25,16 @@ const ArticleScreen = ({ navigation }) => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    fetchData().then(() => setRefreshing(false));
-  }, []);
+    fetchData(data).then(() => setRefreshing(false));
+  }, [data, loading1]);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (!loading1 && data) {
+      fetchData(data);
+    }
+  }, [data, loading1]);
 
-  if (loading1) {
-    return <Loading />;
-  }
-
-  const handleArticlePress = (id) => {
-    const article = articles.find((article) => article.id === id);
-    navigation.navigate("Detail", article);
-  };
-
-  if (loading) {
+  if (loading1 || loading) {
     console.log("Generating article...");
     return (
       <View style={tw`flex-1 items-center justify-center`}>
@@ -50,6 +43,11 @@ const ArticleScreen = ({ navigation }) => {
       </View>
     );
   }
+
+  const handleArticlePress = (id) => {
+    const article = articles.find((article) => article.id === id);
+    navigation.navigate("Detail", article);
+  };
 
   return (
     <FlatList
