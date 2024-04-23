@@ -30,7 +30,7 @@ const MapScreen = () => {
       });
       // Axios
       try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&type=hospital|health|point_of_interest&key=${apiKey}`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`);
         // console.log(response)
         if (response.data.results.length > 0) {
           const hospitals = response.data.results.filter(place => place.types.includes('hospital'))
@@ -59,6 +59,7 @@ const MapScreen = () => {
               longitude: location.longitude,
             }}
             title="Lokasimu saat ini"
+            description={`${location.latitude}, ${location.longitude}`}
           />
           {selectedPlaces.map((place, index) => (
             <Marker
@@ -68,8 +69,9 @@ const MapScreen = () => {
                 longitude: place.geometry.location.lng,
               }}
               title={place.name}
-              // pinColor={place.types.includes('hospital') ? "orange" : "red"}
-              // icon={}
+              description={place.vicinity}
+              pinColor={place.name.includes('klinik') ? "orange" : "green"}
+              // icon={"🏥"}
             />
           ))}
         </MapView>
@@ -104,4 +106,5 @@ const MapScreen = () => {
 };
 
 export default MapScreen;
+
 
