@@ -1,8 +1,9 @@
 // const { Hercai } = require("hercai");
-
 import { Hercai } from "hercai";
+
 const herc = new Hercai();
-export default async function generateArticle() {
+export default async function generateArticle(data) {
+  const { getUserComplaint } = data;
   let articles = [
     {
       id: 1,
@@ -46,22 +47,39 @@ export default async function generateArticle() {
     },
   ];
   try {
-    const instructions = `tolong buatkan 10 data article yang berhubungan dengan kesehatan atau obat-obatan berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contennya menjadi panjang dan gunakan bahasa Indonesia: 
+    const instructions = `tolong buatkan 10 data article yang berhubungan dengan tips-tips kesehatan atau obat-obatan berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contentnya menjadi panjang dan gunakan bahasa Indonesia: 
     {
         "id": Math.floor(Math.random() * Date.now()).toString();,
         "title": "Manfaat Olahraga Bagi Kesehatan Tubuh",
         "content": "Olahraga memiliki banyak manfaat bagi kesehatan tubuh. Manfaat olahraga antara lain meningkatkan daya tahan tubuh, mengurangi risiko penyakit jantung, menjaga berat badan ideal, dan meningkatkan kualitas tidur. Selain itu, olahraga juga dapat meningkatkan produksi hormon endorfin yang dapat membuat kita merasa lebih bahagia dan mengurangi stres."
     },
 
-      PERLU DIPERHATIKAN: tolong buat responsmu menjadi array of objectnya saja, tanpa ada tambahan kata kata atau karakter lain.
+    Ini artikel yang akan ditampilkan kepada seseorang yang memiliki penyakit tertentu, jadi diharapkan kamu bisa memberikan content tips tips kesehatan dan content kesehatan lainnya yang relevan dengan penyakit yang di alaminya 
+    beberapa detail mengenai penyakit orang ini adalah:
+    "Apa gejala yang Anda alami?"
+    Jawaban: "${getUserComplaint?.symptoms}"
+    "Sejak kapan Anda merasakan gejala ini?"
+    Jawaban: "${getUserComplaint?.symptom_start_time}"
+    "Apakah Anda memiliki riwayat penyakit tertentu atau sedang mengonsumsi obat lain?"
+    Jawaban: "${getUserComplaint?.medical_history}"
+    "Apakah ada faktor pemicu yang mungkin memperburuk kondisi Anda?"
+    Jawaban: "${getUserComplaint?.triggering_factors}"
+    "Apakah Anda memiliki alergi terhadap obat tertentu?"
+    Jawaban: "${getUserComplaint?.drug_allergies}"
+    "Bagaimana perasaan Anda secara umum selain gejala ini?"
+    Jawaban: "${getUserComplaint?.general_feeling}"
+
+
+      PERLU DIPERHATIKAN: tolong buat responsmu menjadi ARRAY OF OBJECTNYA saja, TANPA ADA TAMBAHAN KATA KATA ATAU KARAKTER LAIN YANG TIDAK RELEVAN, karena responsmu nanti akan saya JSON.Parse menjadi sebuah data array of object.
     `;
-    const { reply } = await herc.question({
+    let { reply } = await herc.question({
       model: "v3",
       content: instructions,
     });
 
+    reply = reply.replace(/```json/g, "");
+    reply = reply.replace(/```/g, "");
     console.log(reply);
-
     const data = JSON.parse(reply);
 
     data.forEach((item) => {
