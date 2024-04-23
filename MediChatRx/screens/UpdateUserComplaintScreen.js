@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import { CREATE_USERCOMPLAINTS } from "../mutations/CreateUserComplaints";
 import LogoutButton from "../components/LogoutButton";
+import { UPDATE_USERCOMPLAINTS } from "../mutations/UpdateUserComplaints";
 
 const UserComplaintScreen = ({ navigation }) => {
   const [symptoms, setSymptoms] = useState("");
@@ -22,8 +22,8 @@ const UserComplaintScreen = ({ navigation }) => {
   const [validate, setValidate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [createUserComplaint, loading, error] = useMutation(
-    CREATE_USERCOMPLAINTS
+  const [updateUserComplaints, loading, error] = useMutation(
+    UPDATE_USERCOMPLAINTS
   );
 
   const submitComplaint = async () => {
@@ -58,9 +58,9 @@ const UserComplaintScreen = ({ navigation }) => {
 
     try {
       setIsLoading(true);
-      await createUserComplaint({
+      await updateUserComplaints({
         variables: {
-          newUserComplaint: {
+          updateUserComplaint: {
             drug_allergies: allergies,
             general_feeling: generalCondition,
             medical_history: medicalHistory,
@@ -70,7 +70,7 @@ const UserComplaintScreen = ({ navigation }) => {
           },
         },
       });
-      navigation.navigate("MyDrawer");
+ navigation.navigate("MyDrawer");
     } catch (error) {
       console.log(error);
     } finally {
