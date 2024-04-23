@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import axios from 'axios';
 import GooglePlacesInput from "../utils/GooglePlacesInput";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+// import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const apiKey = "AIzaSyCnAVbCnjOnFV834XbJ11_fnzrvGd5VB1s"
 
@@ -28,21 +28,21 @@ const MapScreen = () => {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       });
-      // Axios call to Google Places API
-      axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit+klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=5000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`)
-        .then(response => {
-          if (response.data.results.length > 0) {
-            const firstResult = response.data.results[0];
-            setSelectedPlace({
-              name: firstResult.name,
-              geometry: { location: firstResult.geometry.location }
-            });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      // Axios
+      try {
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=5000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`);
+        if (response.data.results.length > 0) {
+          const firstResult = response.data.results[0];
+          setSelectedPlace({
+            name: firstResult.name,
+            geometry: { location: firstResult.geometry.location }
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     })();
+
   }, []);
 
   return (
@@ -72,7 +72,7 @@ const MapScreen = () => {
       ) : (
         <Text>Loading...</Text>
       )}
-      {location && 
+      {/* {location && 
       <GooglePlacesAutocomplete
         placeholder="Mencari rumah sakit atau klinik terdekat"
         styles={{
@@ -94,7 +94,7 @@ const MapScreen = () => {
         }}
         fetchDetails={true}
       />
-      }
+      } */}
     </View>
   );
 };
