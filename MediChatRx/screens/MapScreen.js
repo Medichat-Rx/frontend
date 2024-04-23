@@ -11,7 +11,7 @@ const apiKey = "AIzaSyCnAVbCnjOnFV834XbJ11_fnzrvGd5VB1s"
 const MapScreen = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [selectedPlaces, setSelectedPlaces] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -30,13 +30,14 @@ const MapScreen = () => {
       });
       // Axios
       try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&type=hospital|health|point_of_interest|establishment&key=${apiKey}`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&type=hospital|health|point_of_interest&key=${apiKey}`);
+        // console.log(response)
         if (response.data.results.length > 0) {
-          const firstResult = response.data.results[0];
-          setSelectedPlace({
-            name: firstResult.name,
-            geometry: { location: firstResult.geometry.location }
-          });
+          const hospitals = response.data.results.filter(place => place.types.includes('hospital'))
+          // .slice(0, 3);
+          const clinics = response.data.results.filter(place => place.types.some(type => type.includes('clinic')))
+          // .slice(0, 3);
+          setSelectedPlaces([...hospitals, ...clinics]);
         }
       } catch (error) {
         console.log(error);
@@ -59,15 +60,18 @@ const MapScreen = () => {
             }}
             title="Lokasimu saat ini"
           />
-          {selectedPlace && (
+          {selectedPlaces.map((place, index) => (
             <Marker
+              key={index}
               coordinate={{
-                latitude: selectedPlace.geometry.location.lat,
-                longitude: selectedPlace.geometry.location.lng,
+                latitude: place.geometry.location.lat,
+                longitude: place.geometry.location.lng,
               }}
-              title={selectedPlace.name}
+              title={place.name}
+              // pinColor={place.types.includes('hospital') ? "orange" : "red"}
+              // icon={}
             />
-          )}
+          ))}
         </MapView>
       ) : (
         <Text>Loading...</Text>
@@ -100,3 +104,4 @@ const MapScreen = () => {
 };
 
 export default MapScreen;
+
