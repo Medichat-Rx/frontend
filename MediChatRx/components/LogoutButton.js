@@ -14,6 +14,11 @@ const LogoutButton = () => {
     await SecureStore.deleteItemAsync("access_token");
     await client.clearStore();
 
+
+    const check = await SecureStore.getItemAsync("access_token");
+
+    console.log(check, "<<<<<<<<<<< LOGOUT")
+
     setIsSignedIn(false);
   };
 

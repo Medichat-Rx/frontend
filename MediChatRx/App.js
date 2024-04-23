@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 // import 'react-native-gesture-handler';
 import { StyleSheet, Text, View, Button, Image } from "react-native"; // Added Image import
-import { ApolloProvider } from "@apollo/client";
+import { ApolloProvider, useLazyQuery } from "@apollo/client";
 import client from "./config/apolloClient";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
@@ -11,10 +11,12 @@ import * as SecureStore from "expo-secure-store";
 import MyDrawer from "./navigators/MyDrawer";
 import { useFonts } from "expo-font";
 import MyStack from "./navigators/MyStack";
+import { GET_USER_COMPLAINT } from "./queries/GetUserComplaint";
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false);
   // const { isSignedIn, setIsSignedIn } = useContext(AuthContext);
   const [loaded] = useFonts({
     "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
@@ -30,7 +32,7 @@ export default function App() {
   const getToken = async () => {
     try {
       const token = await SecureStore.getItemAsync("access_token");
-      console.log(token);
+      // console.log(token);
       if (token) {
         setIsSignedIn(true);
       }
@@ -66,11 +68,13 @@ export default function App() {
     <AuthContext.Provider
       value={{
         isSignedIn,
+        isNewUser,
         setIsSignedIn,
+        setIsNewUser,
       }}
     >
       <ApolloProvider client={client}>
-        <MyStack />
+        <MyStack test={"test"} />
       </ApolloProvider>
     </AuthContext.Provider>
   );

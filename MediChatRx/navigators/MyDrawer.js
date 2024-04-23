@@ -15,7 +15,8 @@ import MapScreen from "../screens/MapScreen";
 import ArticleScreen from "../screens/ArticleScreen";
 import DetailScreen from "../screens/DetailScreen";
 import LogoutButton from "../components/LogoutButton";
-import UserComplaintScreen from "../screens/UserComplaintScreen";
+import CreateUserComplaint from "../screens/CreateUserComplaintScreen";
+import UpdateUserComplaintScreen from "../screens/UpdateUserComplaintScreen";
 import { styled } from "nativewind";
 import {
   Ionicons,
@@ -131,7 +132,7 @@ export default function MyDrawer({ isSignedIn }) {
     >
       <Drawer.Screen name="Chat" component={HomeScreen} />
       <Drawer.Screen name="Profil" component={ProfileScreen} />
-      <Drawer.Screen name="KeluhanMu" component={UserComplaintScreen} />
+      <Drawer.Screen name="KeluhanMu" component={UpdateUserComplaintScreen} />
       <Drawer.Screen name="Map" component={MapScreen} />
       <Drawer.Screen name="Artikel" component={ArticleScreen} />
     </Drawer.Navigator>
