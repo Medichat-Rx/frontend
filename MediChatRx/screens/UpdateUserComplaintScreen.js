@@ -70,7 +70,7 @@ const UserComplaintScreen = ({ navigation }) => {
           },
         },
       });
- navigation.navigate("MyDrawer");
+      navigation.navigate("Chat");
     } catch (error) {
       console.log(error);
     } finally {
