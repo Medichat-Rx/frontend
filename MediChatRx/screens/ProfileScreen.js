@@ -4,6 +4,9 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { GET_CURRENT_LOG_PROFILE } from "../queries/GetCurrentLogProfile";
 import Loading from "../components/LoadingComponent";
+import { createAvatar } from "@dicebear/core";
+import { notionists } from "@dicebear/collection";
+import { SvgXml } from "react-native-svg";
 
 export default function ProfileScreen() {
   const { loading, error, data } = useQuery(GET_CURRENT_LOG_PROFILE);
@@ -23,14 +26,16 @@ export default function ProfileScreen() {
     location: "",
   };
 
+  const avatar = createAvatar(notionists, {
+    seed: `${data.findCurrentLogUser.name}`,
+    backgroundColor: ["ffdfbf"],
+  }).toString();
+
   return (
     <View style={tw`bg-white h-full p-1`}>
       <View style={tw`mt-20 items-center justify-center`}>
         <View style={tw`mt-1 mb-6`}>
-          <Image
-            source={{ uri: user.imageUrl }}
-            style={tw`w-28 h-28 rounded-full`}
-          />
+          <SvgXml xml={avatar} style={tw`w-24 h-24 rounded-full m-3`} />
         </View>
 
         <Text style={tw`text-lg mb-1 font-semibold`}>Name</Text>
