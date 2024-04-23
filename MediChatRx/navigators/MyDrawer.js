@@ -27,6 +27,10 @@ import {
 import { useQuery } from "@apollo/client";
 import { GET_CURRENT_LOG_PROFILE } from "../queries/GetCurrentLogProfile";
 import Loading from "../components/LoadingComponent";
+import { createAvatar } from "@dicebear/core";
+
+import { notionists } from "@dicebear/collection";
+import { SvgXml } from "react-native-svg";
 
 const StyledView = styled(View);
 const StyledImage = styled(Image);
@@ -40,15 +44,17 @@ function CustomDrawerContent({ isSignedIn, ...props }) {
     console.log("fetching profile... from drawer");
     return <Loading />;
   }
+
+  const avatar = createAvatar(notionists, {
+    seed: `${data.findCurrentLogUser.name}`,
+    backgroundColor: ["ffdfbf"],
+  }).toString();
+
   return (
     <DrawerContentScrollView {...props}>
       <StyledView className="flex items-center p-5 font-poppins-regular pt-10">
-        <Image
-          source={{
-            uri: "https://assets.kompasiana.com/items/album/2021/03/24/blank-profile-picture-973460-1280-605aadc08ede4874e1153a12.png?t=o&v=300",
-          }}
-          style={tw`w-24 h-24 rounded-full m-3`}
-        />
+        <SvgXml xml={avatar} style={tw`w-24 h-24 rounded-lg m-3`} />
+
         <StyledText className="text-lg text-white font-poppins-bold">
           Hai, {data.findCurrentLogUser.name}
         </StyledText>
