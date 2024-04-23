@@ -9,25 +9,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
+import { CREATE_USERCOMPLAINTS } from "../mutations/CreateUserComplaints";
+import LogoutButton from "../components/LogoutButton";
 
-const USERCOMP_MUTATION = gql`
-  mutation Mutation($newUserComplaint: NewUserComplaint) {
-    createUserComplaint(newUserComplaint: $newUserComplaint) {
-      _id
-      UserId
-      symptoms
-      symptom_start_time
-      medical_history
-      triggering_factors
-      drug_allergies
-      general_feeling
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
-const UserComplaintScreen = ({navigation}) => {
+const UserComplaintScreen = ({ navigation }) => {
   const [symptoms, setSymptoms] = useState("");
   const [symptomStartTime, setSymptomStartTime] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
@@ -37,7 +22,9 @@ const UserComplaintScreen = ({navigation}) => {
   const [validate, setValidate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [createUserComplaint, loading, error] = useMutation(USERCOMP_MUTATION);
+  const [createUserComplaint, loading, error] = useMutation(
+    CREATE_USERCOMPLAINTS
+  );
 
   const submitComplaint = async () => {
     setValidate("");
@@ -68,7 +55,7 @@ const UserComplaintScreen = ({navigation}) => {
         "Tolong ceritakan mengenai perasaan anda secara umum selain gejala ini"
       );
     }
-    
+
     try {
       setIsLoading(true);
       await createUserComplaint({
@@ -83,7 +70,7 @@ const UserComplaintScreen = ({navigation}) => {
           },
         },
       });
-      navigation.navigate("Home");
+      navigation.navigate("MyDrawer");
     } catch (error) {
       console.log(error);
     } finally {

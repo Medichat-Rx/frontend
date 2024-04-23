@@ -1,6 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { StatusBar } from "expo-status-bar";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -14,6 +14,8 @@ import { AuthContext } from "../context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import { styled } from "nativewind";
+import { GET_USER_COMPLAINT } from "../queries/GetUserComplaint";
+import Loading from "../components/LoadingComponent";
 
 const LOGIN_MUTATION = gql`
   mutation Mutation($email: String!, $password: String!) {
@@ -29,12 +31,16 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsSignedIn } = useContext(AuthContext);
+  const { setIsSignedIn, setIsNewUser } = useContext(AuthContext);
 
-  
   const StyledTouchableOpacity = styled(TouchableOpacity);
 
-  const [loginInput, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const [loginInput] = useMutation(LOGIN_MUTATION, {
+    refetchQueries: [GET_USER_COMPLAINT],
+  });
+
+  const [getUserComplaint, { data, loading, error }] =
+    useLazyQuery(GET_USER_COMPLAINT);
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -49,16 +55,19 @@ export default function LoginScreen({ navigation }) {
         },
       });
 
-      console.log(data.login.email, "<<<<<<<<<<<<");
+      // console.log(data.login.email, "<<<<<<<<<<<<");
       const test = await SecureStore.setItemAsync(
         "access_token",
         data.login.access_token
       );
-      console.log(test);
+      // console.log(test);
       const check = await SecureStore.getItemAsync("access_token");
-      console.log(check, "<<<<<");
+      // console.log(check, "<<<<<");
       console.log("Login success");
-      setIsSignedIn(true);
+
+      getUserComplaint().then((res) => {
+        setIsSignedIn(true);
+      });
     } catch (error) {
       setErrorMessage("Invalid email or password");
       console.log("Login failed", error);
@@ -67,6 +76,17 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
+  // console.log(error, loading, data, "<<<<<<< LAZYQUERY");
+
+  useEffect(() => {
+    if (!loading && data) {
+      if (data.getUserComplaint) {
+        setIsNewUser(false);
+      } else {
+        setIsNewUser(true);
+      }
+    }
+  }, [loading, data]);
   return (
     <View className="flex-1 bg-blue-100">
       <StatusBar style="auto" />
@@ -79,7 +99,9 @@ export default function LoginScreen({ navigation }) {
         ></Image>
         <Text className="absolute top-28 left-0 right-0 text-center text-black text-3xl font-lexend-bold">
           Selamat Datang di{" "}
-          <Text className="text-green-500 font-poppins-boldItalic">MediChat</Text>{" "}
+          <Text className="text-green-500 font-poppins-boldItalic">
+            MediChat
+          </Text>{" "}
           <Text className="text-blue-600 font-poppins-bold">Rx</Text>
         </Text>
 
