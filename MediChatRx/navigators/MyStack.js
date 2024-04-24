@@ -77,11 +77,12 @@ export default function MyStack(test) {
                 <Stack.Screen
                   name="Keluhan"
                   component={CreateUserComplaint}
+                  options={{ headerShown: false }}
                 />
                 <Stack.Screen
                   name="MyDrawer"
                   component={MyDrawer}
-                  options={{ headerShown: false }}
+                  options={{ headerShown: false}}
                 />
               </>
             ) : (
