@@ -34,7 +34,7 @@ const MapScreen = () => {
         try {
           const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
           // console.log(response.data.results)
-          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && !place.name.includes("ojek") && !place.name.includes("Sudar") && !place.name.includes("Restoran"))
+          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && !place.name.includes("ojek") && !place.name.includes("Sudar") && !place.name.includes("Restoran") && !place.name.includes("PT"))
           // .slice(0, 3);
           setSelectedPlaces(prevPlaces => [...prevPlaces, ...hospitals]);
         } catch (error) {
