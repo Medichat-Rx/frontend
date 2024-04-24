@@ -82,7 +82,7 @@ export default function MyStack(test) {
                 <Stack.Screen
                   name="MyDrawer"
                   component={MyDrawer}
-                  options={{ headerShown: false}}
+                  options={{ headerShown: false }}
                 />
               </>
             ) : (
@@ -93,7 +93,11 @@ export default function MyStack(test) {
                   options={{ headerShown: false }}
                 />
 
-                <Stack.Screen name="Detail" component={DetailScreen} />
+                <Stack.Screen
+                  name="Detail"
+                  component={DetailScreen}
+                  options={{ headerTransparent: true }}
+                />
               </>
             )}
           </>
