@@ -1,7 +1,15 @@
 // const { Hercai } = require("hercai");
 import { Hercai } from "hercai";
+import generateImage from "./generateImage";
 
 const herc = new Hercai();
+async function updateImageUrls(articles) {
+  for (let article of articles) {
+    article.imgUrl = await generateImage(article.imgUrl);
+  }
+  return articles;
+}
+
 export default async function generateArticle(data) {
   const { getUserComplaint } = data;
   let articles = [
@@ -48,11 +56,14 @@ export default async function generateArticle(data) {
   ];
   try {
     const instructions = `tolong buatkan 10 data article yang berhubungan dengan tips-tips kesehatan atau obat-obatan berupa array of object, contohnya seperti ini, tidak boleh sama seperti contoh, buat contentnya menjadi panjang dan gunakan bahasa Indonesia: 
-    {
-        "id": Math.floor(Math.random() * Date.now()).toString();,
+    [
+      {
+        "id": <random two digit number>,
         "title": "Manfaat Olahraga Bagi Kesehatan Tubuh",
         "content": "Olahraga memiliki banyak manfaat bagi kesehatan tubuh. Manfaat olahraga antara lain meningkatkan daya tahan tubuh, mengurangi risiko penyakit jantung, menjaga berat badan ideal, dan meningkatkan kualitas tidur. Selain itu, olahraga juga dapat meningkatkan produksi hormon endorfin yang dapat membuat kita merasa lebih bahagia dan mengurangi stres."
-    },
+        "imgUrl": <Nama penyakit dalam bahasa inggris>
+    }, 
+  ]
 
     Ini artikel yang akan ditampilkan kepada seseorang yang memiliki penyakit tertentu, jadi diharapkan kamu bisa memberikan content tips tips kesehatan dan content kesehatan lainnya yang relevan dengan penyakit yang di alaminya 
     beberapa detail mengenai penyakit orang ini adalah:
@@ -70,6 +81,7 @@ export default async function generateArticle(data) {
     Jawaban: "${getUserComplaint?.general_feeling}"
 
 
+    untuk "imgUrl" dia akan memanggil sebuah fungsi generateImage() yang menerima sebuah parameter, jadi masukkan saja sebuah keyword yang nantinya akan dikirim ke fungsi, jadinya nanti akan seperti ini, contoh "imgUrl": "leg cramps" dan sebagainya, namun semuanya harus dalam bahasa inggris, contoh "pilek" jadi "flu" dan sebagainya.
       PERLU DIPERHATIKAN: tolong buat responsmu menjadi ARRAY OF OBJECTNYA saja, TANPA ADA TAMBAHAN KATA KATA ATAU KARAKTER LAIN YANG TIDAK RELEVAN, karena responsmu nanti akan saya JSON.Parse menjadi sebuah data array of object.
     `;
     let { reply } = await herc.question({
@@ -77,10 +89,16 @@ export default async function generateArticle(data) {
       content: instructions,
     });
 
+    console.log(reply, "<<< replynya")
+
     reply = reply.replace(/```json/g, "");
     reply = reply.replace(/```/g, "");
-    console.log(reply);
-    const data = JSON.parse(reply);
+
+    let data = JSON.parse(reply);
+    console.log(data, "<<<<datanya");
+
+    // console.log(data)
+    data = await updateImageUrls(data);
 
     data.forEach((item) => {
       articles.push(item);
