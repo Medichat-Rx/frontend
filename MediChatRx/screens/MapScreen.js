@@ -102,7 +102,7 @@ const MapScreen = () => {
           ))}
         </MapView>
       ) : (
-        <Text>Loading...</Text>
+        <Text>Memuat peta...</Text>
       )}
       {/* {location && 
       <GooglePlacesAutocomplete
