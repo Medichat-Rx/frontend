@@ -1,3 +1,4 @@
+import { styled } from "nativewind";
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import tw from "tailwind-react-native-classnames";
@@ -8,23 +9,25 @@ const Card = ({ post }) => {
     return content.split(" ").slice(0, 20).join(" ") + "... Lihat Selengkapnya";
   };
 
+  const StyledView = styled(View)
+  const StyledText = styled(Text)
   return (
     <TouchableOpacity
       onPress={post.onPress}
-      style={tw`bg-white rounded-2xl shadow-md mb-4`}
+      style={tw`bg-white rounded-2xl shadow-lg mb-4`}
     >
       <View>
         {post.imgUrl && (
           <Image
-            style={tw`w-full h-40 rounded-lg`}
+            style={tw`w-full h-40 rounded-t-lg`}
             source={{ uri: post.imgUrl }}
           />
         )}
         <View style={tw`p-6`}>
-          <Text style={tw`font-bold text-xl mb-2`}>{post.title}</Text>
-          <Text style={tw`text-base mb-4 text-gray-700`}>
+          <StyledText className="text-xl mb-2 font-poppins-bold">{post.title}</StyledText>
+          <StyledText className="text-base mb-4 mt-4 text-gray-700 font-poppins-regular">
             {truncateContent(post.content)}
-          </Text>
+          </StyledText>
           {post.tags && post.tags.length > 0 && (
             <View style={tw`flex-row flex-wrap mb-2`}>
               {post.tags.map((tag, index) => (
