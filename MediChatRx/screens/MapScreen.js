@@ -28,20 +28,44 @@ const MapScreen = () => {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       });
+
       // Axios
-      try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&key=${apiKey}`);
-        // console.log(response.data.results)
-        if (response.data.results.length > 0) {
-          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && place.types.includes('health') && !place.name.includes("ojek") && !place.name.includes("makan") && !place.name.includes("Restoran") && !place.name.includes("Barber") && !place.name.includes("Sudar") ) 
-          // .slice(0, 3);
-          const clinics = response.data.results.filter(place => place.name.includes('Klinik') || place.name.includes('klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi'))
-          // .slice(0, 3);
-          setSelectedPlaces([...hospitals, ...clinics]);
+      const fetchHospitals = async () => {
+        try {
+          const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
+          // console.log(response.data.results)
+          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && !place.name.includes("ojek") && !place.name.includes("Sudar") && !place.name.includes("Restoran"));
+          setSelectedPlaces(prevPlaces => [...prevPlaces, ...hospitals]);
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
+      };
+
+      const fetchClinics = async () => {
+        try {
+          const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
+          // console.log(response.data.results)
+          const clinics = response.data.results.filter(place => place.name.includes('Klinik') || place.name.includes('klinik'));
+          setSelectedPlaces(prevPlaces => [...prevPlaces, ...clinics]);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      const fetchPharmacies = async () => {
+        try {
+          const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=apotek|apotik&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
+          // console.log(response.data.results)
+          const pharmacies = response.data.results.filter(place => place.name.includes('Apotek') || place.name.includes('apotik'));
+          setSelectedPlaces(prevPlaces => [...prevPlaces, ...pharmacies]);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      await fetchHospitals();
+      await fetchClinics();
+      await fetchPharmacies();
     })();
 
   }, []);
@@ -70,9 +94,10 @@ const MapScreen = () => {
               }}
               title={place.name}
               description={place.vicinity}
-              pinColor={place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? "#01593c" : "#013c3e"}
-              // image={}
-              icon={place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? require("../assets/clinic.png") : require("../assets/hospital.png") }
+              
+              pinColor={place.name.includes('Apotek') || place.name.includes('apotik') ? "#ff6347" : (place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? "#01593c" : "#013c3e")}
+
+              icon={place.name.includes('Apotek') || place.name.includes('apotik') ? require("../assets/pharmacy.png") : (place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? require("../assets/clinic.png") : require("../assets/hospital.png"))}
             />
           ))}
         </MapView>
@@ -107,5 +132,3 @@ const MapScreen = () => {
 };
 
 export default MapScreen;
-
-
