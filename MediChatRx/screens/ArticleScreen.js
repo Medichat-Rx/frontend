@@ -39,7 +39,7 @@ const ArticleScreen = ({ navigation }) => {
     return (
       <View style={tw`flex-1 items-center justify-center`}>
         <Image source={require("../assets/i-icon.png")} style={tw`w-24 h-24`} />
-        <Text>Generating article....</Text>
+        <Text className="font-poppins-regular">Membuatkan artikel untukmu...</Text>
       </View>
     );
   }
