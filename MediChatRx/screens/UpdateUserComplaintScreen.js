@@ -39,29 +39,35 @@ const UserComplaintScreen = ({ navigation }) => {
 
     if (!symptoms) {
       setValidate("Tolong ceritakan mengenai keluhan apa yang kamu alami");
+      return
     }
     if (!symptomStartTime) {
       setValidate("Tolong isi sejak kapan gejala ini mulai dirasakan");
+      return
     }
     if (!medicalHistory) {
       setValidate(
         "Tolong isi mengenai riwayat penyakit anda, jika tidak ada anda bisa mengisi 'Tidak ada'"
       );
+      return
     }
     if (!triggerFactors) {
       setValidate(
         "Tolong isi mengenai faktor pemicu yang mungkin memperburuk penyakit anda, jika tidak tahu anda bisa mengisi 'tidak tahu'"
       );
+      return
     }
     if (!allergies) {
       setValidate(
         "Tolong isi jika anda mempunyai alergi terhadap suatu obat, jika tidak anda dapat mengisi 'Tidak, saya tidak memiliki alergi terhadap obat-obatan.'"
       );
+      return
     }
     if (!generalCondition) {
       setValidate(
         "Tolong ceritakan mengenai perasaan anda secara umum selain gejala ini"
       );
+      return
     }
 
     try {
