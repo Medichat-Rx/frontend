@@ -33,7 +33,7 @@ const MapScreen = () => {
         const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit|klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=2000&key=${apiKey}`);
         // console.log(response.data.results)
         if (response.data.results.length > 0) {
-          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && place.types.includes('health') && !place.name.includes("ojek") && !place.name.includes("makan") && !place.name.includes("Restoran") && !place.name.includes("Barber"))
+          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && place.types.includes('health') && !place.name.includes("ojek") && !place.name.includes("makan") && !place.name.includes("Restoran") && !place.name.includes("Barber") && !place.name.includes("Sudar") ) 
           // .slice(0, 3);
           const clinics = response.data.results.filter(place => place.name.includes('Klinik') || place.name.includes('klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi'))
           // .slice(0, 3);
@@ -71,7 +71,8 @@ const MapScreen = () => {
               title={place.name}
               description={place.vicinity}
               pinColor={place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? "#01593c" : "#013c3e"}
-              // icon={"🏥"}
+              // image={}
+              icon={place.name.includes('klinik') || place.name.includes('Klinik') || place.name.includes('Rumah Sehat') || place.name.includes('Terapi') ? require("../assets/clinic.png") : require("../assets/hospital.png") }
             />
           ))}
         </MapView>

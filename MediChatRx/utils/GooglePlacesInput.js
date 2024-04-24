@@ -10,22 +10,21 @@ const GooglePlacesInput = () => {
       styles={{
         textInput: {
           height: 50,
-          color: 'blue',
-          backgroundColor: 'lightgray',
+          color: "blue",
+          backgroundColor: "lightgray",
           borderRadius: 20,
         },
       }}
-      onPress={(data, details = null) => {
-        console.log(data, details);
-      }}
+      // onPress={handlePlaceSelect}
       query={{
-        key: apiKey,
+        key: "AIzaSyCnAVbCnjOnFV834XbJ11_fnzrvGd5VB1s",
         language: "id",
         type: "establishment",
-        keyword: [ "hospital", "health", "point_of_interest", "establishment"],
-        radius: 500
+        keyword: ["hospital", "health", "point_of_interest", "establishment"],
+        radius: 3000,
+        location: `${location.latitude},${location.longitude}`,
       }}
-      fetchDetails={false}
+      fetchDetails={true}
     />
   );
 };
