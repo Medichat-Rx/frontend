@@ -64,15 +64,15 @@ export default function ProfileScreen({navigation}) {
         </View>
 
         <Text style={tw`text-lg mb-1 font-semibold`}>Name</Text>
-        <Text style={tw`text-base text-gray-800 mb-1`}>
+        <Text style={tw`text-base text-gray-800 mb-5`}>
           {data.findCurrentLogUser.name}
         </Text>
         <Text style={tw`text-lg mb-1 font-semibold`}>Username</Text>
-        <Text style={tw`text-base text-gray-800 mb-1`}>
-          {data.findCurrentLogUser.username}
+        <Text style={tw`text-base text-gray-800 mb-5`}>
+          @{data.findCurrentLogUser.username}
         </Text>
         <Text style={tw`text-lg mb-1 font-semibold`}>Email</Text>
-        <Text style={tw`text-base text-gray-800 mb-1`}>
+        <Text style={tw`text-base text-gray-800 mb-5`}>
           {data.findCurrentLogUser.email}
         </Text>
         <Text style={tw`text-lg mb-1 font-semibold`}>Current Location</Text>
@@ -83,12 +83,6 @@ export default function ProfileScreen({navigation}) {
       ) : (
         <Text>Loading...</Text>
       )}</Text>
-
-        <TouchableOpacity
-          style={tw`mt-10 w-full bg-blue-500 p-3 rounded-full mx-4`}
-        >
-          <Text style={tw`text-white text-center text-lg`}>Action Button</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );

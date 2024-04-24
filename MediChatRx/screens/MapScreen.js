@@ -34,7 +34,8 @@ const MapScreen = () => {
         try {
           const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=rumah+sakit&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
           // console.log(response.data.results)
-          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && !place.name.includes("ojek") && !place.name.includes("Sudar") && !place.name.includes("Restoran"));
+          const hospitals = response.data.results.filter(place => place.types.includes('hospital') && !place.name.includes("ojek") && !place.name.includes("Sudar") && !place.name.includes("Restoran"))
+          // .slice(0, 3);
           setSelectedPlaces(prevPlaces => [...prevPlaces, ...hospitals]);
         } catch (error) {
           console.log(error);
@@ -45,7 +46,8 @@ const MapScreen = () => {
         try {
           const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=klinik&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
           // console.log(response.data.results)
-          const clinics = response.data.results.filter(place => place.name.includes('Klinik') || place.name.includes('klinik'));
+          const clinics = response.data.results.filter(place => place.name.includes('Klinik') || place.name.includes('klinik'))
+          // .slice(0, 3);
           setSelectedPlaces(prevPlaces => [...prevPlaces, ...clinics]);
         } catch (error) {
           console.log(error);
@@ -56,7 +58,8 @@ const MapScreen = () => {
         try {
           const response = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=apotek|apotik&location=${location.coords.latitude},${location.coords.longitude}&radius=1500&key=${apiKey}`);
           // console.log(response.data.results)
-          const pharmacies = response.data.results.filter(place => place.name.includes('Apotek') || place.name.includes('apotik'));
+          const pharmacies = response.data.results.filter(place => place.name.includes('Apotek') || place.name.includes('apotik'))
+          // .slice(0, 3);
           setSelectedPlaces(prevPlaces => [...prevPlaces, ...pharmacies]);
         } catch (error) {
           console.log(error);
