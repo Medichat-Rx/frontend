@@ -38,7 +38,7 @@ export default function HomeScreen() {
           type: "text",
           createdAt: Number(el.createdAt),
         }));
-      setMessages(formattedMessages);
+      setMessages(formattedMessages, {});
     }
   }, [data]); // Dependensi useEffect adalah data
 

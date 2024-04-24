@@ -13,7 +13,7 @@ import * as SecureStore from "expo-secure-store";
 //   cache: new InMemoryCache(),
 // });
 const httpLink = createHttpLink({
-  uri: "https://medichatrx.carloshakim.online",
+  uri: "https://medichatrx.carloshakim.online/",
 });
 
 const authLink = setContext(async (_, { headers }) => {
