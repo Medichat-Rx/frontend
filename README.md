@@ -84,7 +84,7 @@ Here are some screenshots of the application:
     <img src="assets/updateComplaint.png" alt="Image Description">
 </div>
 
-<h2>Map (it can recommend nearby pharmacies, clinics, or hospitals nearby)</h2>
+<h2>Map (it can recommend nearby pharmacies, clinics, or hospitals)</h2>
 <div align="center">
     <img src="assets/map.png" alt="Image Description">
 </div>
