@@ -43,7 +43,9 @@ const MapScreen = () => {
               !place.name.includes("ojek") &&
               !place.name.includes("Sudar") &&
               !place.name.includes("Restoran") &&
-              !place.name.includes("PT")
+              !place.name.includes("PT") && 
+              !place.name.includes("Puskesmas") &&
+              !place.name.includes("Pukesmas")
           );
           // .slice(0, 3);
           setSelectedPlaces((prevPlaces) => [...prevPlaces, ...hospitals]);
@@ -60,7 +62,7 @@ const MapScreen = () => {
           // console.log(response.data.results)
           const clinics = response.data.results.filter(
             (place) =>
-              place.name.includes("Klinik") || place.name.includes("klinik")
+              place.name.includes("Klinik") || place.name.includes("klinik") || place.name.includes("Puskesmas") || place.name.includes("Pukesmas")
           );
           // .slice(0, 3);
           setSelectedPlaces((prevPlaces) => [...prevPlaces, ...clinics]);
