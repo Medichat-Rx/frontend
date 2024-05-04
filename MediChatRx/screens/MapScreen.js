@@ -121,7 +121,8 @@ const MapScreen = () => {
                   : place.name.includes("klinik") ||
                     place.name.includes("Klinik") ||
                     place.name.includes("Rumah Sehat") ||
-                    place.name.includes("Terapi")
+                    place.name.includes("Terapi") ||
+                    place.name.includes("Puskesmas") || place.name.includes("Pukesmas")
                   ? "#01593c"
                   : "#013c3e"
               }
